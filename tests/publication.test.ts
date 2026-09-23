@@ -10,6 +10,13 @@ const publication=await import('../tools/publication.mjs' as string) as {
   readPublicFile:(root:string,path:string)=>Buffer;
 };
 const build=await import('../tools/build.mjs' as string) as {verifierOriginFromConfig:(text:string)=>string};
+const dev=await import('../tools/dev.mjs' as string) as {localConfig:(text:string)=>Record<string,unknown>};
+
+test('local configs omit remote-only inference bindings while preserving local service wiring',()=>{
+  const config={name:'inference',main:'worker/inference.ts',ai:{binding:'AI'},d1_databases:[{binding:'DB'}],services:[{binding:'VERIFIER',service:'verifier'}]};
+  const {ai:_,...expected}=config;
+  assert.deepEqual(dev.localConfig(JSON.stringify(config)),expected);
+});
 
 test('an unlisted local document cannot enter the downloadable source, even inside a public directory',()=>{
   const root=mkdtempSync(join(tmpdir(),'siwt-publication-'));

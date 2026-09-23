@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import {randomInt} from '../../shared/random.ts';
 import {digest,encode,randomToken,quarter,networkKey,readCapped} from '../../shared/proof.ts';
 import {scanText,identifies} from '../../shared/privacy.ts';
 import {policy,policyVersions,currentPolicyDigest,citableRule,juryStage,quorumFor,groundsMatch,employersNeeded,seatsPerEmployer,communitySeatsPerCase,ownEmployerExcluded,URGENT_CHALLENGE_RULES,type JuryStage,type JuryClass,type PolicyVersion,type CitableRule} from '../../shared/policy.ts';
@@ -35,7 +36,7 @@ async function readJson(request:Request):Promise<unknown> {
 /** A uniformly random permutation from crypto randomness. */
 export function shuffled<T>(items:readonly T[]):T[] {
  const out=[...items];
- for(let i=out.length-1;i>0;i--) {const j=crypto.getRandomValues(new Uint32Array(1))[0]!%(i+1);[out[i],out[j]]=[out[j]!,out[i]!];}
+ for(let i=out.length-1;i>0;i--) {const j=randomInt(i+1);[out[i],out[j]]=[out[j]!,out[i]!];}
  return out;
 }
 /** Only the UTC day a case opened is kept: the start of the next UTC day (or now, exactly at midnight), so no exact time is stored and no deadline counted from it comes early. */

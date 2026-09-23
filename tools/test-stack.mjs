@@ -2,6 +2,7 @@
 // Own a temporary local stack for CI: refuse occupied ports and stop our workers even on failure.
 import {createServer} from 'node:net';
 import {spawn} from 'node:child_process';
+import {readFileSync,existsSync} from 'node:fs';
 
 async function free(port) {
   await new Promise((resolve,reject)=>{
@@ -33,6 +34,20 @@ try {
   await ready();
   await run(process.execPath,['tests/integration.mjs']);
   await run('bunx',['playwright','test']);
+} catch(error) {
+  // Startup diagnostics are useful on a fresh runner. Mask env secrets before printing error lines.
+  const secrets=['main','inference','verifier'].flatMap(name=>{
+    const path=`.dev.vars.${name}`;
+    return existsSync(path)?readFileSync(path,'utf8').split('\n').filter(line=>/^[A-Z_]*(KEY|SECRET|TOKEN|PEPPER)[A-Z_]*=/.test(line)).map(line=>line.slice(line.indexOf('=')+1)).filter(Boolean):[];
+  });
+  for(const name of ['main','inference','verifier']) {
+    const path=`.wrangler/local-${name}.log`;
+    if(!existsSync(path))continue;
+    let text=readFileSync(path,'utf8');
+    for(const value of secrets)text=text.replaceAll(value,'[REDACTED]');
+    console.error(`${name} startup diagnostics:\n${text.split('\n').filter(line=>/error|failed|authentication|login|account|API|permission|not found/i.test(line)).slice(-80).join('\n')}`);
+  }
+  throw error;
 } finally {
   await run(process.execPath,['tools/dev.mjs','--stop']);
 }

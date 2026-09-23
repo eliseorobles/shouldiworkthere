@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import {randomInt} from '../../shared/random.ts';
 import {scanText,identifies} from '../../shared/privacy.ts';
 import {proofSchema,digest,decode,randomToken,quarter,recentQuarters,verifyAuthor,authorMessage} from '../../shared/proof.ts';
 import {validateSurvey,aggregateAnswers,survey} from '../../shared/survey.ts';
@@ -353,7 +354,7 @@ async function publishGroup(env:Env,group:PublicationGroup,now:string,min:number
 /** Most a batch's analysis messages are spread over, so readings do not appear in any order a publisher chose. */
 export const ANALYSIS_SPREAD_SECONDS=6*3600;
 /** A uniformly random delay in [0, ANALYSIS_SPREAD_SECONDS) seconds, from crypto randomness. */
-export const analysisDelay=()=>crypto.getRandomValues(new Uint32Array(1))[0]!%ANALYSIS_SPREAD_SECONDS;
+export const analysisDelay=()=>randomInt(ANALYSIS_SPREAD_SECONDS);
 async function finishBatch(env:Env,batchId:string,members:SubmissionRow[],rule='BATCH') {
  const statements:D1PreparedStatement[]=[], PER_MEMBER=4;
  for(const member of members) {

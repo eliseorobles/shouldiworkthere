@@ -46,6 +46,13 @@ export function envFileProblems(worker,text) {
 }
 export const childEnv=environment=>Object.fromEntries(Object.entries(environment).filter(([key])=>!/TYPESAFE|ISSUER|MAILBOX_PEPPER|ADMIN_TOKEN|MASTER_KEY|RATE_LIMIT_SECRET|INTERNAL_TOKEN/.test(key)));
 
+/** The local inference path uses TypeSafe or degraded mode. Omit the remote-only AI binding entirely. */
+export function localConfig(text) {
+  const config=jsonc(text);
+  delete config.ai;
+  return config;
+}
+
 /** --only=main,verifier starts (or with --restart, restarts) just those workers and leaves the others running. */
 export function selectedWorkers(argv) {
  const only=argv.find(a=>a.startsWith('--only='))?.slice(7);
@@ -98,7 +105,10 @@ async function main() {
  const env=childEnv(process.env);
  for(const worker of workers) {
   const output=openSync(`.wrangler/local-${worker.name}.log`,'a');
-   const child=spawn('bunx',['wrangler','dev','--config',worker.config,'--local','--test-scheduled','--port',String(worker.port),'--inspector-port',String(worker.inspector),'--env-file',worker.envFile],{detached:true,stdio:['ignore',output,output],env:{...env,WRANGLER_SEND_METRICS:'false'}});
+   const configPath=`.local-${worker.name}.wrangler.jsonc`;
+   // Keep these in the project root so relative entrypoints and migration paths retain their meaning.
+   writeFileSync(configPath,`${JSON.stringify(localConfig(readFileSync(worker.config,'utf8')),null,2)}\n`);
+   const child=spawn('bunx',['wrangler','dev','--config',configPath,'--local','--test-scheduled','--port',String(worker.port),'--inspector-port',String(worker.inspector),'--env-file',worker.envFile],{detached:true,stdio:['ignore',output,output],env:{...env,WRANGLER_SEND_METRICS:'false'}});
   writeFileSync(`.wrangler/local-${worker.name}.pid`,String(child.pid));child.unref();
  }
  const note=pinNote(existsSync('worker/generated/client-assets.ts')?readFileSync('worker/generated/client-assets.ts','utf8'):'',existsSync('.wrangler/provision/local-issuer-public-keys.json'));

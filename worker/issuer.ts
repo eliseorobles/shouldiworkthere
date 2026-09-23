@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { randomInt } from '../shared/random.ts';
 import { decode, digest, encode, importIssuer, openIssuerKey, sealIssuerKey, quarter, quarterStart, randomToken, suite, keyPurpose, keySource, communityKeyId, issuerKeyExpiry, generateIssuerKeyPair, issuerKeyStarted, issuanceLimits, issuanceBand, networkKey, readCapped, EMPLOYER_SLUG, COMMUNITY_KEY_LIMITS, COMMUNITY_EMAIL_LIMITS, JUROR_BATCH_MAX, JUROR_QUOTA, ISSUANCE_POLICY, type IssuerKey, type IssuanceLimits, type KeyPurpose, type KeySource } from '../shared/proof.ts';
 import { checkPow, powBits, powMinute, powSubject, POW_VERSION, POW_WINDOW_MINUTES } from '../shared/pow.ts';
 import { domainProblem, normalizeDomain } from '../shared/domains.ts';
@@ -432,7 +433,7 @@ export default {
     const throttleHash=await keyedHash(env,`throttle-v1:${mailbox}`);
     const recent=await env.VERIFIER.prepare('SELECT COUNT(*) AS n FROM mailbox_challenges WHERE throttle_hash=? AND expires_at>?').bind(throttleHash,now.toISOString()).first<{n:number}>();
     const send=(recent?.n??0)<3 && (source!=='community' || await communityEmailAllowed(env,key.companySlug,now));
-    const id=randomToken(24), code=String(100000+crypto.getRandomValues(new Uint32Array(1))[0]!%900000);
+    const id=randomToken(24), code=String(100000+randomInt(900000));
     // A throttled request still gets a challenge row (so the reply is identical), with a code nobody was sent.
     await env.VERIFIER.prepare('INSERT INTO mailbox_challenges(id,key_id,mailbox_hash,code_hash,expires_at,throttle_hash) VALUES(?,?,?,?,?,?)').bind(id,key.id,mailboxHash,await keyedHash(env,`${id}:${send?code:randomToken()}`),new Date(now.getTime()+15*60000).toISOString(),throttleHash).run();
     if(send) {const sending=env.EMAIL.send({from:env.EMAIL_FROM,to:email,...verificationEmail(code)}).then(()=>undefined,()=>undefined);if(ctx)ctx.waitUntil(sending);else await sending;}

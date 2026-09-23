@@ -17,6 +17,7 @@ npm run dev
 
 Open http://localhost:8788. After browser/shared code changes, run `npm run build:local`.
 Stop the three workers with `npm run dev:stop`. Logs and databases are under `.wrangler/`.
+The launcher generates ignored `.local-*.wrangler.jsonc` files with the remote-only AI binding omitted.
 
 No cloud credentials are needed for the local fixtures or the automated checks. An optional
 `TYPESAFE_API_KEY` in `.env` enables hosted inference; `.env.example` documents it. With no key,
