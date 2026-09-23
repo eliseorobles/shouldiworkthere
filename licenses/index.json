@@ -1,0 +1,66 @@
+[
+  {
+    "name": "@cloudflare/blindrsa-ts",
+    "version": "0.4.6",
+    "license": "Apache-2.0",
+    "files": [
+      "licenses/cloudflare-blindrsa-ts-0.4.6-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "@fontsource-variable/instrument-sans",
+    "version": "5.3.0",
+    "license": "OFL-1.1",
+    "files": [
+      "licenses/fontsource-variable-instrument-sans-5.3.0-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "@fontsource-variable/jetbrains-mono",
+    "version": "5.3.0",
+    "license": "OFL-1.1",
+    "files": [
+      "licenses/fontsource-variable-jetbrains-mono-5.3.0-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "react",
+    "version": "19.3.0",
+    "license": "MIT",
+    "files": [
+      "licenses/react-19.3.0-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "react-dom",
+    "version": "19.3.0",
+    "license": "MIT",
+    "files": [
+      "licenses/react-dom-19.3.0-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "scheduler",
+    "version": "0.28.0",
+    "license": "MIT",
+    "files": [
+      "licenses/scheduler-0.28.0-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "sjcl",
+    "version": "1.0.9",
+    "license": "(BSD-2-Clause OR GPL-2.0-only)",
+    "files": [
+      "licenses/sjcl-1.0.9-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "zod",
+    "version": "4.6.5",
+    "license": "MIT",
+    "files": [
+      "licenses/zod-4.6.5-LICENSE.txt"
+    ]
+  }
+]

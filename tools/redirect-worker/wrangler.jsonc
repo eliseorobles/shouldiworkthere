@@ -1,0 +1,14 @@
+// The former "kernel" Worker, replaced by a redirect. Its old D1 databases, queues and R2 bucket are not bound and are
+// left untouched.
+{
+  "name": "kernel",
+  "main": "index.js",
+  "compatibility_date": "2026-09-21",
+  "account_id": "4926f383e3df2fdc65ede2ae7605176e",
+  "workers_dev": false,
+  "observability": {"enabled": false, "logs": {"invocation_logs": false}},
+  "routes": [
+    {"pattern": "kernel.shouldiworkthere.com", "custom_domain": true},
+    {"pattern": "www.shouldiworkthere.com", "custom_domain": true}
+  ]
+}

@@ -1,0 +1,288 @@
+{
+ "manifest": {
+  "format": "siwt-release-v1",
+  "buildId": "1200660dd1",
+  "releasedOn": "2026-09-23",
+  "client": {
+   "served": {
+    "/app.js": {
+     "sha256": "lZBfsMYP9kpeJ6iyHfAdnbpIauOUm0y_Tk1gzcUPTXs",
+     "bytes": 800170
+    },
+    "/app.css": {
+     "sha256": "0S4mRoGgAuiAmXjFqYyb24BOmGKc7ZMMBhVgVRhbUh8",
+     "bytes": 175754
+    }
+   },
+   "js": "lZBfsMYP9kpeJ6iyHfAdnbpIauOUm0y_Tk1gzcUPTXs",
+   "css": "Kev6E66sIuCgQ6GAeilVmzKTjF7dxJCCLY-hGczraKs",
+   "fonts": "Phyvc8lHW5lQLeRbX4-_DaHO_ZNb1zi14GnL2W6T3wY"
+  },
+  "sources": {
+   "algorithm": "sha256-base64url",
+   "files": {
+    "bun.lock": "gdn1tSZB4KcxXDSc5-BVwptfCl5gWewcFstOOfU8bLQ",
+    "db/intake-migrations/0001_publication_privacy.sql": "5_WWAFfbeJUaP7nMyzDz3ybJ8ppWdIofe2K8HGnBtjU",
+    "db/intake-migrations/0002_question_release_state.sql": "mJqRMyVMiWPEDZa9NGN3ayjrXFCSbCnjQik5sL-IM6U",
+    "db/intake-migrations/0003_moderation.sql": "ngivoljUj8_1CFwViZ40YvXyciic1jU_6eq-FjOpRNs",
+    "db/intake-migrations/0004_consent_retention_budget.sql": "Dzczs4cvsEwpDjiTIhgBduuLhOfmQjbMo9uZRVGIE6Y",
+    "db/intake-migrations/0005_finality_queue_snapshots.sql": "pDdkixPY4u4CIbGOnDSdz6bSTaJR-nAdBF_vTPyTL7A",
+    "db/intake.sql": "E4v5xxLdOr3fVEg8dSmrur8GyOmjNL753M4KITulQrQ",
+    "db/issuer-public-keys.sql": "-ZNucadDgEvNQ2jkdOwzJcn1NqccjxVoPxqV3t1jgc4",
+    "db/migrations/0001_reconciliation.sql": "q0JHPqtL1XcU3O1BM7H9LG3Pd1WXvAQCuj5LI3MIoFg",
+    "db/migrations/0002_privacy_publication.sql": "qVu7Rbe7IYUQ1qslAmQhkV8msERzOTlP_GHtIxiHtSY",
+    "db/migrations/0003_evidence_faq.sql": "ey-zXMmh65mZdAuMwqEMZgmdSO5Yje0pSFU14EvR9wQ",
+    "db/migrations/0004_legacy_scrub.sql": "YT_zfw5x9CkjWjyMlbZtvND6ptZ7vkjYuxIYD11GlgQ",
+    "db/migrations/0005_moderation_public.sql": "jzIxnaHZNsm8xjKwbSXCnlFiKDzNtTCTJ0_aYXDpSfA",
+    "db/migrations/0006_juror_keys.sql": "nHjnxzGOLOHr779oE8kICl7ImH0XXHqysppQfdRXIoY",
+    "db/migrations/0007_vector_index_and_interest_days.sql": "DKwTjtlRt1TrrfdD00LoxyUgmIiBVw2L5f6F-j4T8yI",
+    "db/migrations/0009_directory.sql": "GW_l0sqFFjeWzVyWkrfW_zdSRHl8eGXswT1q_lpcmCc",
+    "db/migrations/0010_community_employers.sql": "9yiaY2jayvjD4G1DgBT5FhGt4x8M1bZctx6N6Ev3msg",
+    "db/migrations/0011_listing_corrections.sql": "uY_ZDbJuGNoZQk3GWMpPljTVdAGiZWnCJfvaXpw77BY",
+    "db/schema-verify.sql": "N2bS2Nk6ofp7F-V6M_vxJUzpaToiY17-tDhRnm-wSio",
+    "db/schema.sql": "FwkSlXvdjScSCePL6qQQeBLOmlw5ugdUKtPhRsNPuJE",
+    "db/seed.sql": "yz9kd9XgVUqXRMqz8Mc8Y7x0G2mE5JgNPrhFvN4Q-FY",
+    "db/verifier-migrations/0001_sealed_keys_and_quota.sql": "_oqIOfLEOLuSDpczSGxu-rjA2W-Lz2Zxf3JvV_wOmGw",
+    "db/verifier-migrations/0002_juror_tokens_and_issuance_controls.sql": "z64BzNRwXDxqw9mBQEPVF5gdD8LfZJzoE6xgX13sv7s",
+    "db/verifier-migrations/0003_juror_quota_three.sql": "ti5QHdvcmfYsZkpBYH8i9hJZz2_xbOqLY1OsHLFAWIk",
+    "db/verifier-migrations/0004_drop_legacy_tables.sql": "TjfYdi3vdm71sLZatDerAwRpP4tKzuoclk3wHcVAXsk",
+    "db/verifier-migrations/0005_domain_registry_and_community_keys.sql": "DQTS2WRt51d06HHhLPPvu6m-eZdokWS-0zBHefiBick",
+    "db/verifier-migrations/0006_community_email_budget_and_withdrawals.sql": "4GCGPON7F4zjr1el1e_VUoXgZrPge7osNDYuZyOycZ4",
+    "db/verifier-v2.sql": "j79zHDTuRmq2gxFGTRaBgk0QG6bYGP2njMMq47PQKDs",
+    "inference.wrangler.jsonc": "UJUXdmpCtpMgK2d6Vz_3HvKjLMlMq0BQSj372JgYcOc",
+    "issuer.wrangler.jsonc": "sB3JNQT5oAVlDWyrRNmLvPmcY908BGA8C34vJfRs6qc",
+    "package.json": "J1LIY3Y7Zl5na_UFohN-Q2F5G9d95L6LR8oP2b4NPmI",
+    "shared/brand.ts": "aA07QWnpoTtXXwAmSTpDfE4AEaIugAnpPbXtER-bnVY",
+    "shared/domains.ts": "gu9osVnXT-c6iAJUHrSp0WCpG6FnCTENTrS6EezwyzM",
+    "shared/faq.ts": "ZjWxp-p6lYHnLNBcQEESiNC0pbs5hldHVVNVAgiwvcI",
+    "shared/policy.ts": "YMKDTnrHWbZgkUj3pFCxS29MGAorJNinll4cbnpZGCU",
+    "shared/pow.ts": "BK9GyeUiSnNsOST1xq2bl81-_wZlQF9xHOUJf717bQc",
+    "shared/privacy.ts": "o6vXJT73jx4kpxLz5cwCMipWrVTwBEB9zNctigh7MJE",
+    "shared/proof.ts": "Z1I5TugSSLJJkT8pZJdSEh7z6lx7RWZsVR5RjCqfNAQ",
+    "shared/safety.ts": "39d9JYkXAPA_Z4XHa_gikfN3BhpvGHCZ0V5CE15Bz1k",
+    "shared/survey.ts": "icr0AqmBi_y-vryVI9BAIo9LXf98tBiyBK8YJKVTonE",
+    "shared/trustees.ts": "JyQmLx3fQUcORB-bjB-eVnhKF3Z9uYP1BroxNhLjU5I",
+    "worker/inference-core.ts": "RLkhf4QXXeWLF2DfIBafjiyn17NsyYfClv_wqzvPH7A",
+    "worker/inference.ts": "EJHahlkX1FFpNw3n60_OBs_WJnd4DLarTpEWv5J1S_w",
+    "worker/issuer.ts": "Kl0GuXOMJCEpo61UcPFxH_-dbcI9Kz_8YTBtWG3vSTM",
+    "worker/src/ai.ts": "Q8ODBAdjuzpi6EUvyHlkZ0Btn0CAHmdux0Dlz1xUyT0",
+    "worker/src/app.ts": "YZtDyf7GogLD3Kcug6ZwsSReth0Znnz-RCPsrr-Rl3I",
+    "worker/src/community.ts": "i4FrzcpTiWTnnUx3QIGusDzWbUvoa5dHL9OqjMi6_KE",
+    "worker/src/credentials.ts": "utd599Y69cSY7S2iiYK8yv4fk_9J9vLdFRMcgCkvg6Q",
+    "worker/src/evidence.ts": "2EwvwvkllcV0E3Exm-sMVgfBZczMZwzWP78xmSm8n8k",
+    "worker/src/flags.ts": "quqax9ViMV1zQxu3tShyZcs1W1e3y3k1pfGcb3jU-H0",
+    "worker/src/index.ts": "obAdh9m-HEyl6S9ZTqm57WJGWtPL7LMJWr6L91F35WE",
+    "worker/src/interpretation.ts": "GJLEq2yiFwRlkB5cgZGCFVazcXGnlFnQxmldpsVy1x4",
+    "worker/src/jev.ts": "areyloj3Uxz0foMjmVp5yRP8_4-B-CYX5UzHENsFGsU",
+    "worker/src/ledger.ts": "GYm9JEu5wZ8A3HfMGe7NyoB3JJKfEb3tJiwPmNxVhfM",
+    "worker/src/legal.ts": "0LCQRmb8HzbDtaxZ3YbuHrUMejIgfc1_GvY99qYVB-k",
+    "worker/src/moderation.ts": "EHXvHyLhFTyUF6c5bbZQy6kf71B_GviWx1Z8r4KijIM",
+    "worker/src/network.ts": "GNMKD-_VOMxub7HjD0qJVXjDKEnVSdV4k7unJ2oFlS8",
+    "worker/src/og.ts": "mffHDDe7ngAtrKxPtd00xnIfUxvD3O-9c4TdKKpEPIE",
+    "worker/src/pages.ts": "RsXXUEiwKrVd8KX8gz9kjAZrtUEwKyvpt8SHnhOIh4E",
+    "worker/src/release.ts": "hW321sBYjTkqJTta7LFmL3oU1b1KiZehS2cIpZdaX6w",
+    "worker/src/submissions.ts": "zhO4lVBO_MCrtkb30YyAkKpIXqfZHoEtbD6QniSinLk",
+    "worker/src/types.ts": "pqVEjCH2XqGuvtPHGIlpNagS92j5w9Ej5YU1nsKFrik",
+    "wrangler.jsonc": "P4LyfqO89-rI5IsF4LgnK4T_FRz_oVKUKICGzhSqBqs"
+   },
+   "digest": "nxcU55mbt1WiJYfPRgC30J1bl6bZASb2GtOhtYRNHhA"
+  },
+  "issuerKeys": [
+   {
+    "id": "amazon:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "O2FJx3hEGyLctEa0wHPgqYG7IXO_yOG5PYS1I0cSbpU"
+   },
+   {
+    "id": "amazon:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "gq-E-Hp2fz8Qy6ue_asFPfX3NvCECUfAwNeOQq1Xi_s"
+   },
+   {
+    "id": "amazon:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "ogfwO8LOJV9L-W8mndXUlIZM_HuWsnVxBsZa-cbDCko"
+   },
+   {
+    "id": "amazon:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "aW3jOgmU1rkrfhBXZu3M9w-VruY8WjMWTTdUeZUHmL0"
+   },
+   {
+    "id": "anthropic:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "I_IP5TWyvIddFCvhyxGhrNA-9LeBxuXMn9cqDJwTrn4"
+   },
+   {
+    "id": "anthropic:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "Sl7lhERz31Pkk2dmsocW70EmmeaEX7tUOuzXHjC7KGI"
+   },
+   {
+    "id": "anthropic:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "nXUxkfOMaLPn5AQ8p5JFtEgY8wOsG_IhykLCX6ZTyNo"
+   },
+   {
+    "id": "anthropic:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "C-UpQ-_EDTvK02iXVO1epyHOzz9SV2aArE-KDhUVq3I"
+   },
+   {
+    "id": "cloudflare:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "HbpyXWkF06D6NZN_Ne2ajq4u3GlXtEeBejftcqFKYWw"
+   },
+   {
+    "id": "cloudflare:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "irMd-Jm4_i3Vsq6g81ihwWHdr4CIJBC6ZtCCXT5nGM0"
+   },
+   {
+    "id": "cloudflare:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "i1tg_0gfFM8TaZFMvbm8hAcatKGxtd9fqq2_Sy3Dy3g"
+   },
+   {
+    "id": "cloudflare:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "bp2VuiCyLfpBmceKqn0feDfkaNc8FxiHjuCX6S1E3C4"
+   },
+   {
+    "id": "google:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "rSRyeLWXUzUTgfl0k4xbX4CIgtrr5xQGsaWiIiZJDmc"
+   },
+   {
+    "id": "google:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "c27apGY-Augr6lCEBpXZdYiRkuMCxBtvSCgH6tE0qrI"
+   },
+   {
+    "id": "google:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "d6K_sPw6-4JLtDuVGBC9i9JqdfqojOYjiTPH0EEULcA"
+   },
+   {
+    "id": "google:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "H7Md0DqhqWPQkQcjsPxSaVkUZXjiacnDSPdQF-ucWNU"
+   },
+   {
+    "id": "meta:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "wNgNN5VkoB9sS06AgAEbIfH-M0ImPODuxPbmLJAs_as"
+   },
+   {
+    "id": "meta:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "zHUKKP3d2kEhHi0nAJOrzHdxwxkIxhhDtNBbFV1F2CY"
+   },
+   {
+    "id": "meta:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "0zFhewGhllar051psYBkbINj-misPr8nwgbG0IEh3N4"
+   },
+   {
+    "id": "meta:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "7xZ8SCRqJPXC_gj3z6uTJQr5uXdribwfbEh155HQnLc"
+   },
+   {
+    "id": "microsoft:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "C3mtBBkwE1iE8EJzeI-WLIszaqQNUncvtAGuyp5cyqw"
+   },
+   {
+    "id": "microsoft:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "kEI7YLwvrd4v_qSX-ChIhsrM3eCxZyTJuYbe9yAcgPQ"
+   },
+   {
+    "id": "microsoft:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "gNI5QmQG22CblvCUBgFBB3Yx5ZRTxtvJCuGkadvLWtk"
+   },
+   {
+    "id": "microsoft:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "HzrldTPbOZGcDULAW9JZ9q3G2VDfxMD7y2kjZnmFQDs"
+   },
+   {
+    "id": "nvidia:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "o03ZZCyUUD6KWU1jaj0is33cgWNSn1D_6ZznNw-JsPU"
+   },
+   {
+    "id": "nvidia:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "-f2LPZB-r-m5ZOP7nJg0fcZqvOznZCj4px3WsyS--fw"
+   },
+   {
+    "id": "nvidia:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "rk_2dIgSiUHd3Mg0I3WPIVY9KijtB1vu7wIH6IlnuCA"
+   },
+   {
+    "id": "nvidia:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "-4zIm0tkeepiqvETTf2mtF7qtcqwa5CtQoWncwTN0Ko"
+   },
+   {
+    "id": "openai:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "kprLR3UAKlevV_8rukpELK7TOzayXodj1xdQ5PPvY4I"
+   },
+   {
+    "id": "openai:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "vn-bVDbm2bea-Q3YwSEcwL-sRG0fVEq2Xnvw3kVD9uo"
+   },
+   {
+    "id": "openai:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "KPb9J8JZ95gavG0QaIbgU6CJFIMnEgamh2SIfaHJkrI"
+   },
+   {
+    "id": "openai:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "La7OVuQ1QFc2tSn8R8MWn7gyyYi44429wOAmgaXuWDc"
+   },
+   {
+    "id": "stripe:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "Lh6GNkQGwjJu17GRCMIDQ3_r4EemRXebV3SbU4aNlL4"
+   },
+   {
+    "id": "stripe:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "57r0TsadP359cY_OKmowlcR4MwrlWcQeoqDcffIhuCk"
+   },
+   {
+    "id": "stripe:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "NQZONMzRKURUX5dBjAFBQsVf06p8mU83f2qLECH5HOk"
+   },
+   {
+    "id": "stripe:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "9WN4kcuPZMw0HwrY179OUehCVjVRnKn3xOSoMkNrD2c"
+   }
+  ],
+  "issuerKeysDigest": "v3RT-s59hLucDK9o9aTKgOXPOcqBKQVILIrcmg9x6BA",
+  "policy": {
+   "version": "0.8.0",
+   "digest": "tr22UXMBTMY_a9aGHJsq2_OLkldopGjeMOTM7eV6mBQ"
+  },
+  "legal": {
+   "version": "1.2.0",
+   "effective": "2026-09-23"
+  }
+ },
+ "signature": {
+  "alg": "Ed25519",
+  "keyId": "n5rAyc9Kux3UrEoneHSsst5YrtLBKUC9v3HDUCI68co",
+  "publicKey": "NnKIJf064-65N-c-tBg93GlolXvW2iB2IrrGN2aoq-0",
+  "value": "hap0lZ6OXcGMXcspVFVEYdmNkc8BGtDNFDc9CIqHfRb0flHAfnayWrNbTFPnXXe-3YrQdn44dF5YRGLpz6TDDw"
+ }
+}

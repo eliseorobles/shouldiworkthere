@@ -1,0 +1,58 @@
+{
+  "name": "shouldiworkthere",
+  "main": "worker/src/index.ts",
+  "compatibility_date": "2026-09-21",
+  "compatibility_flags": ["nodejs_compat"],
+  "preview_urls": false,
+  "account_id": "4926f383e3df2fdc65ede2ae7605176e",
+  "observability": {
+    "enabled": false,
+    "logs": {
+      "invocation_logs": false
+    }
+  },
+  "vars": {
+    "ENVIRONMENT": "production",
+    "PUBLIC_ORIGIN": "https://shouldiworkthere.com",
+    "MIN_COHORT_N": "25",
+    "MIN_CLUSTER_N": "5"
+    ,"VERIFIER_ORIGIN":"https://verify.shouldiworkthere.com"
+    ,"REAL_PUBLICATION_ENABLED":"true"
+    ,"JURY_ENABLED":"true"
+    ,"CRISIS_RESOURCES_ENABLED":"true"
+    ,"SAMPLE_EMPLOYERS":"off"
+    ,"TESTIMONY_BATCH_MIN":"5"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "shouldiworkthere-public",
+      "database_id": "76309153-1591-4c2e-a070-3988614744ab",
+      "migrations_dir":"db/migrations"
+    },
+    {
+      "binding": "INTAKE",
+      "database_name": "shouldiworkthere-intake",
+      "database_id": "186713e4-7371-4a99-8563-40653c018b77",
+      "migrations_dir":"db/intake-migrations"
+    }
+  ],
+  "services":[{"binding":"INFERENCE","service":"shouldiworkthere-inference"},{"binding":"VERIFIER","service":"shouldiworkthere-verifier"}],
+  "queues":{"producers":[{"binding":"ANALYSIS_QUEUE","queue":"shouldiworkthere-evidence-analysis"}]},
+  "r2_buckets":[{"binding":"ARCHIVES","bucket_name":"shouldiworkthere-transparency"}],
+  "ratelimits":[
+    {"name":"ABUSE","namespace_id":"2001","simple":{"limit":40,"period":60}},
+    {"name":"INFER_LIMIT","namespace_id":"2003","simple":{"limit":30,"period":60}},
+    {"name":"INTEREST","namespace_id":"2004","simple":{"limit":1,"period":60}},
+    {"name":"CHALLENGE_LIMIT","namespace_id":"2005","simple":{"limit":10,"period":60}},
+    {"name":"LIVE_LIMIT","namespace_id":"2006","simple":{"limit":60,"period":60}}
+  ],
+  "triggers":{"crons":["0 */6 * * *"]},
+  "routes": [
+    {
+      "pattern": "shouldiworkthere.com",
+      "custom_domain": true
+    }
+  ],
+  "dev":{"port":8788}
+}

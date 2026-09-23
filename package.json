@@ -1,0 +1,63 @@
+{
+  "name": "shouldiworkthere",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eliseorobles/shouldiworkthere.git"
+  },
+  "homepage": "https://shouldiworkthere.com",
+  "bugs": "https://github.com/eliseorobles/shouldiworkthere/issues",
+  "engines": { "node": ">=24" },
+  "packageManager": "bun@1.4.0",
+  "description": "Should I Work There — inspect workplace evidence, protect the people behind it.",
+  "type": "module",
+  "scripts": {
+    "ticket": "node tools/ticket.mjs",
+    "tickets": "node tools/ticket.mjs list",
+    "build": "node tools/build.mjs",
+    "build:local": "node tools/build.mjs --local",
+    "check:publication": "node tools/publication.mjs --check",
+    "check:licenses": "node tools/licenses.mjs --check",
+    "test:stack": "node tools/test-stack.mjs",
+    "og": "node tools/og.mjs",
+    "dev": "node tools/dev.mjs",
+    "dev:stop": "node tools/dev.mjs --stop",
+    "prepare:local": "node tools/prepare-local.mjs",
+    "db:local": "node tools/db.mjs local",
+    "db:remote": "node tools/db.mjs remote",
+    "fonts": "node tools/fonts.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test \"tests/*.test.ts\"",
+    "deploy": "node tools/build.mjs && node tools/transparency.mjs && wrangler deploy",
+    "test:integration": "node tests/integration.mjs",
+    "test:browser": "playwright test",
+    "eval": "node tools/eval-intents.mjs",
+    "release": "node tools/build.mjs && node tools/transparency.mjs",
+    "deploy:inference": "wrangler deploy --config inference.wrangler.jsonc",
+    "deploy:verifier": "wrangler deploy --config issuer.wrangler.jsonc",
+    "deploy:main": "npm run deploy",
+    "db:bookmarks": "wrangler d1 time-travel info shouldiworkthere-public && wrangler d1 time-travel info shouldiworkthere-intake && wrangler d1 time-travel info shouldiworkthere-verifier --config issuer.wrangler.jsonc",
+    "deploy:all": "npm run db:bookmarks && node tools/db.mjs remote && npm run deploy:inference && npm run deploy:verifier && npm run deploy:main && npm run verify:deployment",
+    "verify:deployment": "node tools/verify-deployment.mjs --state=.siwt-watch-state.json"
+  },
+  "dependencies": {
+    "@cloudflare/blindrsa-ts": "^0.4.6",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250921.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.0",
+    "wrangler": "^4.136.1"
+  }
+}

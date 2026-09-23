@@ -1,0 +1,39 @@
+node_modules/
+dist/
+.wrangler/
+worker/generated/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+local-drafts/
+.dev.vars
+.dev.vars.*
+.issuer-secrets.json
+test-results/
+playwright-report/
+artifacts/
+.private-backups/
+# Local Ed25519 release signing key (mode 0600). Back it up offline, e.g. under .private-backups/. docs/releases/ stays
+# tracked: it is the public, append-only release history watchers pin the signer from.
+.release-signing-key.json
+# State file for tools/verify-deployment.mjs --state (pinned archive digests and releases).
+.siwt-watch-state.json
+# Machine-installed agent instructions and separately produced launch media.
+.agents/
+skills-lock.json
+launch-videos/
+hotdognothotdog.mp4
+# Regenerated from the locked font packages by npm run fonts.
+web/fonts.css
+# Local exports and editor state never belong in a source release.
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.db
+*.db-*
+*.pem
+*.key
+.vscode/
+.idea/

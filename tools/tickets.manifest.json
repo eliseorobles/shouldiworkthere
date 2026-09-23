@@ -1,0 +1,1761 @@
+{
+  "project": "Should I Work There",
+  "north_star": "An incorruptible, privacy-preserving public record of what it is actually like to work somewhere. The employer cannot buy influence. We cannot sell your identity. There is nothing to subscribe to.",
+  "waterfall": [
+    {
+      "id": "W-001",
+      "phase": "Phase 0 - Foundation",
+      "title": "Repo scaffolding and build pipeline",
+      "depends_on": [],
+      "scope": "Bun/TypeScript project, esbuild client bundling inlined into a single deployable Worker, ticket tracking CLI, .gitignore and secret hygiene.",
+      "acceptance": "bun run build produces a Worker bundle with the client embedded; typecheck passes; tickets are tracked in repo."
+    },
+    {
+      "id": "W-002",
+      "phase": "Phase 0 - Foundation",
+      "title": "Cloudflare project bootstrap",
+      "depends_on": [
+        "W-001",
+        "W-079"
+      ],
+      "scope": "D1 database creation, wrangler binding, isolated inference secrets, shouldiworkthere.com deployment, and local D1 parity.",
+      "acceptance": "Database IDs and bindings verified; local schema+migrations apply without deleting records; deploy target documented."
+    },
+    {
+      "id": "W-003",
+      "phase": "Phase 0 - Foundation",
+      "title": "Product brand system and design tokens",
+      "depends_on": [
+        "W-001"
+      ],
+      "scope": "Institutional research-desk identity: type pairing, locked palette, rules, density, component chrome, motion tokens, reduced-motion fallbacks.",
+      "acceptance": "Single stylesheet defines tokens; no banned palette families; every interactive element styled by bespoke chrome, no default component skin."
+    },
+    {
+      "id": "W-004",
+      "phase": "Phase 1 - Data",
+      "title": "D1 schema for public evidence, restricted intake, and transparency ledgers",
+      "depends_on": [
+        "W-001"
+      ],
+      "scope": "Tables: companies, cohorts, metric_definitions, metric_releases, testimony, testimony_topics, corroborations, moderation_actions, legal_requests, financial_entries, releases, credentials, redemption_ledger, rate_limits, question_trails.",
+      "acceptance": "Schema applies cleanly; every published metric traces to its question wording, denominator, period, and verification method."
+    },
+    {
+      "id": "W-005",
+      "phase": "Phase 1 - Data",
+      "title": "Seed corpus: labeled sample employers and honest empty states for real companies",
+      "depends_on": [
+        "W-004"
+      ],
+      "scope": "Fictional employers with rich multi-year structured evidence for demonstration; real companies present only with verified-coverage metadata and honest insufficient-evidence states. No fabricated claims about real employers.",
+      "acceptance": "Sample data is visibly labeled everywhere it appears; real companies show coverage counts and privacy-gated or empty states only."
+    },
+    {
+      "id": "W-006",
+      "phase": "Phase 2 - Inference",
+      "title": "Jev interpreter: typed intent, cohort, topic, and view decisions",
+      "depends_on": [
+        "W-001"
+      ],
+      "scope": "Server-side TypeSafe integration with parallel Noul/Choice/Score questions, closed-set company selection, clarification detection, confidence gating, strict validation, timeout and fallback to deterministic controls, model/prompt versioning.",
+      "acceptance": "Interpretation endpoint returns validated decisions or an explicit clarification/fallback; no free generation reaches the client; measured latency recorded."
+    },
+    {
+      "id": "W-007",
+      "phase": "Phase 2 - Inference",
+      "title": "Evidence query compiler and privacy suppression engine",
+      "depends_on": [
+        "W-004",
+        "W-006"
+      ],
+      "scope": "Compile validated intent into parameterized D1 queries; cohort minimums, complementary suppression, release-window gating, denominator and limitation reporting, refusal with a broader-cohort suggestion.",
+      "acceptance": "Suppressed combinations never leak counts; every response carries n, period, and method; unit tests prove thresholds hold."
+    },
+    {
+      "id": "W-008",
+      "phase": "Phase 3 - Evidence Canvas",
+      "title": "Canvas shell, semantic input, and editable chips",
+      "depends_on": [
+        "W-006"
+      ],
+      "scope": "Persistent intent dock, chips with provenance, manual overrides that stick, live interpretation disclosure (on by default by owner decision D14, off under Global Privacy Control, the visitor's choice remembered), debounce and stale-response rejection, keyboard access.",
+      "acceptance": "Typing a multi-concept question produces editable chips; overrides survive re-interpretation. Live is on by default by owner decision with visible disclosure; switching it off persists, and while off typing produces zero requests; GPC starts it off."
+    },
+    {
+      "id": "W-009",
+      "phase": "Phase 3 - Evidence Canvas",
+      "title": "Confidence forks and question trails",
+      "depends_on": [
+        "W-008"
+      ],
+      "scope": "Medium-confidence interpretation exposed as a fork between named meanings; low confidence asks; high confidence renders directly. Trail breadcrumbs that are reversible and locally persisted.",
+      "acceptance": "Ambiguous query yields fork labeled in plain language; choosing an interpretation preserves context; trail supports backtracking."
+    },
+    {
+      "id": "W-010",
+      "phase": "Phase 3 - Evidence Canvas",
+      "title": "Morphing evidence views",
+      "depends_on": [
+        "W-008"
+      ],
+      "scope": "Canonical view set rendered from the same query contract: overview, compare, timeline, distribution, clusters, testimony reader. Transitions preserve selection and focus.",
+      "acceptance": "Each intent class renders its view with correct data; rapid input cannot render stale results; reduced-motion users get instant swaps."
+    },
+    {
+      "id": "W-011",
+      "phase": "Phase 3 - Evidence Canvas",
+      "title": "Evidence Lens and source panel",
+      "depends_on": [
+        "W-010"
+      ],
+      "scope": "Every metric opens to its question wording, denominator, period, verification method, exclusions, supporting testimony, and sampling limits. Jev-derived themes visually separated from employee answers.",
+      "acceptance": "No displayed statistic lacks traceable provenance; themes are labeled as interpretations, never counted as votes."
+    },
+    {
+      "id": "W-012",
+      "phase": "Phase 4 - Voice",
+      "title": "Submission flow and structured questionnaire",
+      "depends_on": [
+        "W-004"
+      ],
+      "scope": "Three-layer submission: experience (verbatim), claim (specific factual allegation), opinion (labeled). Structured multiple-choice health-record questions plus optional narrative. Delayed publication disclosure.",
+      "acceptance": "Verbatim text is stored unmodified; layers are distinguishable end to end; opinion is never scored as fact."
+    },
+    {
+      "id": "W-013",
+      "phase": "Phase 4 - Voice",
+      "title": "Local privacy editor with abstraction approval",
+      "depends_on": [
+        "W-012"
+      ],
+      "scope": "In-browser detection of exact dates, narrow locations, unique role/history details and direct identifiers; concrete findings; author-approved generalization with before/after diff; no invented anonymity score; identifiers never leave the device.",
+      "acceptance": "Detector runs client-side; every abstraction requires explicit author approval; original text is never silently rewritten."
+    },
+    {
+      "id": "W-014",
+      "phase": "Phase 4 - Voice",
+      "title": "Proof of Employment Without Identity (PoEWI)",
+      "depends_on": [
+        "W-004"
+      ],
+      "scope": "Separated verifier and publisher roles: attestation issues a scoped, expiring, single-use credential bound to an employer and relationship claim; publisher redeems it atomically without receiving identity; duplicate prevention stays verifier-side; per-submission capability prevents cross-post linkage.",
+      "acceptance": "Publisher database contains no identity mapping; redemption is atomic and single-use; forged, expired, and replayed credentials fail; separation is documented and testable."
+    },
+    {
+      "id": "W-015",
+      "phase": "Phase 4 - Voice",
+      "title": "Moderation queue, delayed release, and withdrawal",
+      "depends_on": [
+        "W-012",
+        "W-014"
+      ],
+      "scope": "Privacy pre-screen, serious-allegation human review, spam/astroturf triage with sentiment-neutral rules, randomized publication delay with batch release, withdrawal and redaction receipts.",
+      "acceptance": "Nothing publishes before its release window; moderation cannot suppress criticism, only route it; every action is logged for the transparency ledger."
+    },
+    {
+      "id": "W-016",
+      "phase": "Phase 5 - Trust",
+      "title": "Constitution, privacy, moderation, transparency, legal requests, source, finances pages",
+      "depends_on": [
+        "W-015"
+      ],
+      "scope": "Published Covenant with version history and the ten principles, threat model, moderation policy, live operating costs, donation ledger summary, legal request log, open-source statement.",
+      "acceptance": "All seven routes live; finances and moderation statistics render from real ledger data; legal request log is append-only and public."
+    },
+    {
+      "id": "W-017",
+      "phase": "Phase 5 - Trust",
+      "title": "Transparency ledger administration",
+      "depends_on": [
+        "W-016"
+      ],
+      "scope": "Authenticated admin surface for recording moderation actions, legal requests, costs, and moderation statistics, with append-only semantics and public parity.",
+      "acceptance": "Admin writes require a secret; records cannot be edited or deleted through the API; public view matches ledger."
+    },
+    {
+      "id": "W-018",
+      "phase": "Phase 6 - Assurance",
+      "title": "Security and privacy hardening",
+      "depends_on": [
+        "W-010",
+        "W-015"
+      ],
+      "scope": "CSP and security headers, no sensitive caching, invocation-log suppression, payload-free error handling, rate limiting, secret handling, no third-party analytics, dependency audit.",
+      "acceptance": "Security header audit passes; intake and credential routes are rate limited; no draft or credential material appears in logs or caches."
+    },
+    {
+      "id": "W-019",
+      "phase": "Phase 6 - Assurance",
+      "title": "Test suite and privacy invariants",
+      "depends_on": [
+        "W-007",
+        "W-014"
+      ],
+      "scope": "Unit tests for suppression thresholds, query compilation, credential lifecycle, privacy detector, intent validation, and release gating.",
+      "acceptance": "bun run test passes; each invariant has a named failing case that the test proves is blocked."
+    },
+    {
+      "id": "W-020",
+      "phase": "Phase 6 - Assurance",
+      "title": "Jev intent evaluation harness",
+      "depends_on": [
+        "W-006"
+      ],
+      "scope": "Labeled query corpus covering view selection, cohort extraction, company disambiguation, clarification cases, and adversarial phrasing; reports accuracy and confidence calibration; documents thresholds chosen from results.",
+      "acceptance": "Harness runs against live Jev and reports per-class accuracy plus the thresholds actually used; mismatches are recorded, not hidden."
+    },
+    {
+      "id": "W-021",
+      "phase": "Phase 7 - Ship",
+      "title": "Production deploy",
+      "depends_on": [
+        "W-003",
+        "W-005",
+        "W-011",
+        "W-015",
+        "W-018",
+        "W-019",
+        "W-079"
+      ],
+      "scope": "Apply remote schema and seed, set secrets, deploy Worker, verify routes on the custom domain and workers.dev fallback, verify Jev path in production.",
+      "acceptance": "Live site serves the Evidence Canvas; constitution and transparency pages resolve; interpretation works in production without exposing the key."
+    },
+    {
+      "id": "W-022",
+      "phase": "Phase 7 - Ship",
+      "title": "Demo narrative and launch notes",
+      "depends_on": [
+        "W-021"
+      ],
+      "scope": "The two-clip demo script: intent morph and privacy editor; honest launch notes covering what is real, what is sample data, what is deliberately postponed, and the production dependencies (managed issuer engagement, separate verifier operator).",
+      "acceptance": "Demo script reproducible: the fictional-employer flows on a local copy (the live site holds no fictional data since the September 23, 2026 launch), and the real-employer empty state on the live site; launch notes state limitations plainly and are posted only once the launch release is live and its legal gate is closed."
+    },
+    {
+      "id": "W-023",
+      "phase": "Phase 8 - Acceptance reconciliation",
+      "title": "Brief reconciliation",
+      "depends_on": ["W-079"],
+      "scope": "Reconcile the full brief against running behavior, repair privacy defects, complete probabilistic UI and Jev evidence pipeline, and apply the DeepSeek reference.",
+      "acceptance": "Browser, protocol, publication, inference-boundary and integration tests pass; deployment and docs reflect measured behavior. See docs/requirements-audit.md."
+    },
+    {
+      "id": "W-024",
+      "phase": "Phase 9 - Production trust",
+      "title": "Independent production launch",
+      "depends_on": [
+        "W-023"
+      ],
+      "scope": "Independent verifier and attestation, cryptographic review, legal entity and adopted bylaws, donation recipient, verified inaugural corpus.",
+      "acceptance": "External prerequisites evidenced before enabling real employment intake. Details in tickets/W-024-independent-production-launch.md."
+    },
+    {
+      "id": "W-025",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Executable moderation constitution",
+      "depends_on": [
+        "W-015"
+      ],
+      "scope": "Versioned machine-readable rules at /moderation/vX.Y.Z.json, policy digests, protected amendments, narrow Jev predicates, deterministic clear/repair/jury actions. Criticism and opinion uncertainty favor publication; factual allegations remain attributed testimony.",
+      "acceptance": "Boundary tests cover every threshold; policy is pinned per decision; sentiment cannot influence eligibility; public receipts reference the exact policy digest; thresholds labeled provisional until evaluated."
+    },
+    {
+      "id": "W-026",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Repair-first collaborative editor",
+      "depends_on": [
+        "W-025"
+      ],
+      "scope": "Local privacy highlighting, author-approved generalizations, separate flags for private names, contextual identifiers, personal characterizations and broad allegations. Explicit consent before hosted Jev sees scrubbed text; never silently rewrite testimony.",
+      "acceptance": "Raw draft produces no outbound requests; exact span edits preserve meaning and require approval; numeric anonymity guarantees are absent; factual criticism survives the repair process."
+    },
+    {
+      "id": "W-027",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Anonymous juror eligibility and anti-Sybil proofs",
+      "depends_on": [
+        "W-025",
+        "W-024"
+      ],
+      "scope": "Prove eligible established participation without public profiles; exclude the subject employer and prior case participants; domain-separated one-case nullifiers; private opt-in juror pool. Model credential strength honestly: mailbox possession is not proof of one human.",
+      "acceptance": "Cross-employer exclusion, credential replay, alias abuse, prior-interaction exclusion and eligibility-expiry tests pass; independent protocol review supports any one-human-one-vote claim."
+    },
+    {
+      "id": "W-028",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Random temporary rule-scoped juries",
+      "depends_on": [
+        "W-026",
+        "W-027"
+      ],
+      "scope": "Randomly select 7 eligible jurors, no reputation or permanent moderator role. Present one constitutional YES/NO/UNSURE question with minimum necessary scrubbed passage. Hide author, exact time, employer unless necessary, prior votes and other jurors. Bounded assignment, expiry and replacement.",
+      "acceptance": "Selection and quorum rules are auditable; votes are blind until close; duplicate voting and conflicted credentials fail; insufficient jurors yields an honest pending state, never simulated votes."
+    },
+    {
+      "id": "W-029",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Automatic disjoint appeals",
+      "depends_on": [
+        "W-028"
+      ],
+      "scope": "Author capability starts an appeal without staff discretion. Select 9 entirely different eligible jurors who cannot see the original result. Define finality, UNSURE, timeout and remedy semantics.",
+      "acceptance": "Appeal jury has no member overlap or outcome leakage; state machine and finality tests pass; overturn counts are recorded without exposing a contributor."
+    },
+    {
+      "id": "W-030",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Equal-access challenges and anonymous budgets",
+      "depends_on": [
+        "W-028"
+      ],
+      "scope": "Any reader including employers uses the same published-rule challenge flow. Jev checks relevance to the cited rule; reputational discomfort is not a valid ground. Anonymous token budgets, duplicate-case merging, and deterministic friction for abuse; no paid priority or employer account.",
+      "acceptance": "Frivolous and duplicate challenges cannot suppress a review; budget redemption is atomic; rule relevance and counterexamples are evaluated; no organization gets privileged handling."
+    },
+    {
+      "id": "W-031",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Privacy-preserving public decision receipts",
+      "depends_on": [
+        "W-025",
+        "W-028",
+        "W-029",
+        "W-030"
+      ],
+      "scope": "Append-only audit receipts with rule, policy version/hash, Jev/model version, decision path, rounded vote result, appeal and outcome. Publish aggregate privacy/abuse/spam/legal breakdowns and overturns. Never expose unpublished text, juror identifiers or precise case timing.",
+      "acceptance": "Ledger integrity and privacy thresholds verified; public counts reconcile to outcomes; small categories and timing-sensitive records are suppressed or delayed; readers can inspect the applicable specification."
+    },
+    {
+      "id": "W-032",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Two-of-three break-glass trustees",
+      "depends_on": [
+        "W-031",
+        "W-024"
+      ],
+      "scope": "Exceptional valid legal orders and credible imminent-safety actions require signatures from 2 distinct independent trustees, bounded scope, expiry, replay prevention and a transparency entry. No unilateral content DELETE or moderator dashboard. Disclosure may be delayed where law prohibits publication.",
+      "acceptance": "Single, repeated, revoked and expired signatures fail; normal-content routes cannot invoke emergency authority; independent trustee custody is evidenced before enablement. Cloud-account control remains a separately disclosed operational limitation."
+    },
+    {
+      "id": "W-033",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Constitutional moderation adversarial acceptance",
+      "depends_on": [
+        "W-026",
+        "W-029",
+        "W-030",
+        "W-031",
+        "W-032"
+      ],
+      "scope": "End-to-end tests for author repair, positive/negative treatment parity, prompt injection, coordinated reporting, jury capture, appeals, metadata leakage and trustee exceptions. Record the two X demo flows with accurate disclosures.",
+      "acceptance": "All required cases pass, adverse outcomes documented, public claims reflect active proof strength, and no account-level administrator can use an application moderation override."
+    },
+    {
+      "id": "W-034",
+      "phase": "Phase 10 - Constitutional moderation",
+      "title": "Low-maintenance independent operation",
+      "depends_on": [
+        "W-015",
+        "W-018"
+      ],
+      "scope": "Use Should I Work There branding and technical sender addresses on the chosen personal Cloudflare account. Bounded email/inference workloads, scheduled housekeeping, circuit breakers, expiring unresolved cases, release kill switch, public service status, and no permanent personal moderator queue.",
+      "files": [
+        "worker/src/submissions.ts",
+        "worker/src/moderation.ts",
+        "worker/src/ai.ts",
+        "shared/brand.ts",
+        "docs/operations.md"
+      ],
+      "acceptance": [
+        "Real publication stays off until governance exceptions are operational.",
+        "The legal operator appears only in legal text, never as product branding.",
+        "No moderator inbox or moderator queue is introduced.",
+        "Quotas, expiry, provider outage and disabled-release behavior are tested.",
+        "Docs distinguish operational separation from legal entity/liability protection."
+      ]
+    },
+    {
+      "id": "W-035",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Native Workers AI Jev activation",
+      "depends_on": [
+        "W-006"
+      ],
+      "scope": "Activate typesafe/jev through the isolated inference Worker's AI binding after account billing is enabled. Until then use the existing TypeSafe key only in that service; never silently change providers or turn on gateway payload logging.",
+      "files": [
+        "worker/src/ai.ts",
+        "inference.wrangler.jsonc",
+        "docs/operations.md"
+      ],
+      "acceptance": [
+        "AI.run('typesafe/jev') returns valid Noul, Choice and Score answers on the selected personal Cloudflare account.",
+        "Provider is explicit in configuration and deployment status; source/model/prompt provenance is recorded.",
+        "The inference Worker has no verifier or private-intake binding, and gateway payload logging/caching is off.",
+        "Provider failure retains the last usable view and exposes manual controls; it does not invent answers."
+      ],
+      "tests": [
+        "Native endpoint currently returned API error 2021, insufficient balance. Record as BLOCKED until funded or BYOK is configured.",
+        "Malformed choices, NaN probabilities, unknown enum values and timeouts fail closed.",
+        "Verify no API key appears in HTML, client JS, source download or request payloads."
+      ]
+    },
+    {
+      "id": "W-036",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Parallel evidence decomposition and provenance",
+      "depends_on": [
+        "W-006",
+        "W-015"
+      ],
+      "scope": "Run 20–50 independent narrow judgments over eligible text: firsthand reporting, specific allegation, layoff/reorg/pay/workload/promotion/retaliation/harassment/discrimination, identity risk, abuse signals, six sentiment dimensions, and specificity. Preserve the author's exact approved words.",
+      "files": [
+        "worker/inference.ts",
+        "db/migrations/0001_reconciliation.sql",
+        "web/app.tsx"
+      ],
+      "acceptance": [
+        "A published source ID resolves to public text inside the inference service; arbitrary private IDs yield no model request.",
+        "One typed request evaluates independent predicates; missing dimensions return unknown, not neutral or negative.",
+        "Persist source hash, actual returned model version, prompt version and typed answers separately from original testimony.",
+        "Source edits/withdrawals invalidate derived data; Jev never rewrites testimony or counts model sentiment as questionnaire votes."
+      ],
+      "tests": [
+        "Positive direct manager + negative executives + unclear promotion yields distinct dimension values.",
+        "Unknown compensation/workload remains unknown.",
+        "Before and after processing, testimony bytes and source hash are identical.",
+        "Withdraw a source during inference; late results must not republish its analysis."
+      ]
+    },
+    {
+      "id": "W-037",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Live semantic controls and confidence-native UI",
+      "depends_on": [
+        "W-008",
+        "W-009"
+      ],
+      "scope": "One input selects a bounded interface and interprets employer, comparison employer, function, seniority, geography, period and event. Live mode (on by default by owner decision D14) updates actual evidence views, not just chips.",
+      "files": [
+        "worker/src/jev.ts",
+        "worker/src/index.ts",
+        "web/app.tsx",
+        "tests/browser.spec.ts"
+      ],
+      "acceptance": [
+        "Live is on by default by owner decision with visible disclosure; switching it off persists, and while off typing produces zero requests; GPC starts it off.",
+        "With Live on, paused input triggers one bounded request after 450ms; new input and switching off cancel stale results.",
+        "High-confidence interpretations morph views, medium confidence exposes alternatives, and unsupported/low confidence asks rather than guessing.",
+        "Every inferred dimension is an editable chip; removing it stays authoritative until cleared; manual overrides cannot be silently restored.",
+        "Semantic cursor annotations use typed concepts and source spans only; they never fabricate a population count.",
+        "Retain focus, keyboard navigation, reduced-motion behavior and the last valid canvas during ambiguity.",
+        "D11: Live understanding never shows an error while typing. Live requests have their own per-client budget (about 60 a minute) and never spend the explicit-search budget or the global POST limit; at most one live request is in flight, sent after a 450 ms pause and cancelled by new input.",
+        "D11: A live 429 pauses Live quietly for 60 seconds with an inline note ('Live understanding paused for a minute — press Enter to search') and keeps the last view, never the error banner; an explicit search that is rate limited shows a calm inline message."
+      ],
+      "tests": [
+        "Type senior engineers in NYC last year; unsupported intersections must offer broader evidence, not relabel company totals.",
+        "Slow first response arrives after a newer response; the newer view must remain.",
+        "Political engineering yields a promotion/culture clarification without silently choosing.",
+        "Mobile 390px and desktop 1440px show usable input and no overflow.",
+        "D11 server: tests/api.test.ts 'live understanding has its own budget…' and tests/jev.test.ts 'Live understanding is charged to its own daily budget…'.",
+        "D11 client: a tests/browser.spec.ts case that stubs a live 429 and asserts the quiet pause note, the kept view, no error banner, and that Enter still searches.",
+        "D14: tests/browser.spec.ts 'Live understanding is on by default, starts off under Global Privacy Control, and the visitor's choice is remembered' and 'typing stays on this device until an explicit submit…' (with Live switched off)."
+      ]
+    },
+    {
+      "id": "W-038",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Event-aware morphing evidence views",
+      "depends_on": [
+        "W-037"
+      ],
+      "scope": "Implement company, comparison, timeline, distribution, cohort, source-reader and discovery views from a finite typed contract. Jev selects a view and parameters; SQL and code compute every value.",
+      "files": [
+        "worker/src/evidence.ts",
+        "web/app.tsx",
+        "shared/faq.ts"
+      ],
+      "acceptance": [
+        "A before/after question selects a real documented event; overlapping periods are excluded from before/after claims.",
+        "Two-company comparisons align periods, metrics, cohort definitions and units; unavailable cells are explicit.",
+        "Compensation market-perception answers never become invented pay percentiles.",
+        "FAQ clicks transform the canvas into the corresponding visual grammar without generating prose.",
+        "Unsupported views show an honest no-evidence state instead of a plausible-looking chart."
+      ],
+      "tests": [
+        "For the example February 2025 restructuring, annual 2025 is not a clean before or after period.",
+        "Compare fictional employers with unequal period coverage and inspect all n values.",
+        "Choose a different event and verify the timeline changes to that event.",
+        "Current/former and geography filters cannot be approximated by unrelated cohort dimensions."
+      ]
+    },
+    {
+      "id": "W-039",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Emergent evidence-backed Infinite FAQ",
+      "depends_on": [
+        "W-036",
+        "W-038"
+      ],
+      "scope": "Grow company question architecture from semantic equivalence and sufficient evidence, rather than a fixed FAQ list. Support related follow-ups and reversible question trails without storing search histories.",
+      "files": [
+        "shared/faq.ts",
+        "worker/src/evidence.ts",
+        "worker/src/index.ts",
+        "db/migrations/",
+        "web/app.tsx"
+      ],
+      "acceptance": [
+        "Equivalent phrasings map to a canonical typed question specification; only approved public topic/cohort/event IDs persist.",
+        "New canonical combinations can emerge beyond the starter list, with deterministic wording and traceable source coverage.",
+        "Question counting is opt-in, coarse and rate-limited; raw question text, IP, email and credential are absent from FAQ storage.",
+        "Publish a question only after the popularity and evidence thresholds both pass; no fabricated 'people asked' counts.",
+        "Clicking a question or follow-up drives the existing intent/evidence pipeline and browser history remains reversible."
+      ],
+      "tests": [
+        "Three paraphrases of remote promotion fairness collapse into one canonical spec.",
+        "A frequent question with no evidence does not appear as an answered FAQ.",
+        "Rare/private identifiers never become canonical labels.",
+        "Withdrawal/suppression removes FAQ evidence eligibility without retaining source text in query logs."
+      ]
+    },
+    {
+      "id": "W-040",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Evidence retrieval ranking and inspectable answers",
+      "depends_on": [
+        "W-036"
+      ],
+      "scope": "Bounded candidate retrieval followed by Jev relevance judgments and deterministic assembly of sources, charts and denominators. Every displayed number and quote opens to its provenance.",
+      "files": [
+        "worker/inference.ts",
+        "worker/src/evidence.ts",
+        "web/app.tsx"
+      ],
+      "acceptance": [
+        "Retrieve candidate IDs first, then resolve only published nonwithdrawn text in the isolated inference Worker.",
+        "Score query/candidate pairs on relevance including contradictory evidence; model relevance is labeled separately from truth/confidence in facts.",
+        "Evidence Lens exposes question wording, group, n, period, verification method, exclusions and source IDs.",
+        "No generated answer prose, made-up employees, missing-field guesses or synthesized ratings reach the UI.",
+        "Ranker timeout preserves available evidence with an explicit unavailable state."
+      ],
+      "tests": [
+        "An older relevant account outranks a newer irrelevant one.",
+        "Evidence contradicting the query premise remains eligible.",
+        "A private submission ID cannot be used to fetch or rank an unpublished draft.",
+        "Click a percentage and trace its survey definition; a written quote is not incorrectly claimed to be the vote behind the percentage."
+      ]
+    },
+    {
+      "id": "W-041",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Corroboration without truth inflation",
+      "depends_on": [
+        "W-036",
+        "W-040"
+      ],
+      "scope": "Retrieve similar public accounts, judge same alleged event versus copied text using independent Jev predicates, and count distinct eligible credentialed sources. Vectorize is a scale option for public text only.",
+      "files": [
+        "worker/inference.ts",
+        "db/migrations/0001_reconciliation.sql",
+        "worker/src/evidence.ts",
+        "web/app.tsx"
+      ],
+      "acceptance": [
+        "Shared topic alone cannot establish same-event corroboration.",
+        "Copied accounts are excluded or shown as duplicates, never multiplied into witnesses.",
+        "Cluster membership and source IDs are inspectable; withdrawal removes the source and recomputes eligible counts.",
+        "The UI says potentially related/credentialed accounts unless a stronger independence proof exists; it never says AI verified the allegation.",
+        "Candidate limits and pair counts are bounded and measured; embeddings never include raw private drafts."
+      ],
+      "tests": [
+        "Retroactive Q3 quota paraphrases cluster; unrelated Q4 quota and ordinary quota complaints do not.",
+        "Copy/paste campaigns do not increase an independent-source count.",
+        "Test transitive A≈B, B≈C, A≠C so clustering does not silently assert a shared event.",
+        "Removing one source below the privacy threshold suppresses the cluster."
+      ]
+    },
+    {
+      "id": "W-042",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Semantic employer discovery and explicit limits",
+      "depends_on": [
+        "W-038",
+        "W-040"
+      ],
+      "scope": "Interpret multi-metric employer requests into bounded database predicates, preserving role/period/region and opposing preferences such as good direct managers but poor executive trust.",
+      "files": [
+        "worker/src/jev.ts",
+        "worker/src/index.ts",
+        "worker/src/evidence.ts",
+        "web/app.tsx"
+      ],
+      "acceptance": [
+        "Distinct direct-manager and executive-leadership preferences remain distinct controls.",
+        "Ranking uses database-derived comparable metrics and explicit units, not Jev-generated employer scores.",
+        "All requested filters apply or an unsupported/insufficient-evidence explanation appears; none are silently ignored.",
+        "Real and fictional records are clearly separated. The directory grows without invented evidence (D12 replaces the earlier 200–500 tech-employer target, see below).",
+        "One input navigates named companies, compares two, explores distributions and requests source records.",
+        "D12: A question naming an employer the directory does not list ('charlesschwab', 'Charles Schwab', 'schwab' before expansion) shows a dedicated state: '<name as typed, normalized> isn’t in the directory yet', what opening a record takes, and a share or invite action; never fictional results in its place and never an error.",
+        "D12: An additive migration (db/migrations/0009_directory.sql, INSERT OR IGNORE) lists about 150–250 well-known real employers across tech, finance, healthcare, retail, consulting and the public companies people ask about most, with name, slug and sector only, plus aliases ('schwab', 'jpm', 'chase') used by the on-device cursor and the Jev company prefilter; the company Choice stays within 255 options.",
+        "D12: A real employer without a configured verification domain says 'Verification for this employer isn’t set up yet' in the contribution flow; no mailbox domain is added unless it is certainly the employer's primary corporate domain."
+      ],
+      "tests": [
+        "Highest-paying fintechs for staff engineers cannot be answered using company-wide market-perception percentages.",
+        "No known company plus a generic query does not silently pick a fictional employer as the answer.",
+        "Multi-metric comparison includes each requested metric or marks it unavailable.",
+        "D12: an employer outside the directory shows the unlisted state and no other company (tests/browser.spec.ts 'choosing an employer we do not list shows the unlisted answer, never an error' covers the chosen-fork path); aliases match on the device and in the Jev prefilter; tests/jev.test.ts 'the company question stays within 255 options…' passes after the expansion; a contribution-flow test for an employer without a verification domain."
+      ]
+    },
+    {
+      "id": "W-043",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "End-to-end private-zone inference boundary",
+      "depends_on": [
+        "W-026",
+        "W-036"
+      ],
+      "scope": "Enforce the boundary from local draft to explicitly approved scrubbed material to isolated inference. Email, credentials, private keys, IPs and attestation requests never enter Jev state or logs.",
+      "files": [
+        "shared/privacy.ts",
+        "web/submit.tsx",
+        "worker/issuer.ts",
+        "worker/inference.ts",
+        "worker/src/index.ts",
+        "tests/browser.spec.ts"
+      ],
+      "acceptance": [
+        "Draft typing is local; each suggested replacement requires explicit author approval and preserves meaning.",
+        "No direct identifiers are forwarded when the local/server detector flags them; contextual risk is described honestly.",
+        "Inference ingress accepts only strict allowlisted schemas and public source IDs or explicit approved-text consent.",
+        "Browser/network tests inspect actual bodies and verify no email, proof, author key or identity metadata crosses to inference.",
+        "No analytics, session replay, cross-service request ID or persistent query/IP history is added."
+      ],
+      "tests": [
+        "Paste a named colleague, employer email, precise date and unique role; no draft leaves the browser until approved.",
+        "Spoof consent with an email-bearing payload; server still blocks before inference.",
+        "Withdraw or revise during an in-flight analysis; stale results cannot restore removed content."
+      ]
+    },
+    {
+      "id": "W-044",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Provider and policy evaluation release gate",
+      "depends_on": [
+        "W-036",
+        "W-037",
+        "W-040",
+        "W-043"
+      ],
+      "scope": "Evaluate the actual runtime contracts with labeled normal, ambiguous, adversarial and privacy-sensitive cases. Separate deterministic guarantees from model quality and publish all misses.",
+      "files": [
+        "tools/eval-intents.mjs",
+        "tests/acceptance.test.ts",
+        "tests/browser.spec.ts",
+        "docs/evaluation.md"
+      ],
+      "acceptance": [
+        "Intent, per-dimension classification, relevance ranking and policy signals have separate measured results.",
+        "Fallbacks are not counted as successful Jev runs, and malformed responses fail closed.",
+        "Publish sample size, model version, p50/p95 end-to-end latency, mismatch list and threshold rationale.",
+        "Human/peer/trustee features are not labeled done without operating eligibility and custody evidence."
+      ]
+    },
+    {
+      "id": "W-045",
+      "phase": "Phase 11 - Jev acceptance",
+      "title": "Should I Work There brand and apex cutover",
+      "depends_on": [
+        "W-003",
+        "W-079"
+      ],
+      "scope": "Use Should I Work There everywhere, canonical HTTPS shouldiworkthere.com, rename cloud services and preserve existing data during the cutover.",
+      "files": [
+        "shared/brand.ts",
+        "web/main.tsx",
+        "worker/src/pages.ts",
+        "wrangler.jsonc",
+        "issuer.wrangler.jsonc",
+        "inference.wrangler.jsonc",
+        "docs/",
+        "tickets/"
+      ],
+      "acceptance": [
+        "Page titles, wordmark, PWA, favicon, source download, emails, docs and ticket index use the current brand.",
+        "Apex custom domain serves the tested release; verifier is on verify.shouldiworkthere.com with strict CORS to the apex.",
+        "Database migration is backed up and row counts verified; no production reseed or silent data loss.",
+        "Desktop/mobile screenshots have no former branding; local preview remains available at localhost:8788."
+      ]
+    },
+    {
+      "id": "W-046",
+      "ref": "G1",
+      "phase": "Phase 12 - Brief gaps: evidence engine",
+      "title": "Deterministic evidence answers",
+      "depends_on": [
+        "W-007",
+        "W-011"
+      ],
+      "scope": "Every canvas response carries answer {headline, facts[{label,value,unit,n,period,releaseId}], accountsMentioning?} assembled by templates from released numbers only, for overview, before/after, comparison, distribution, cohort, reader and discovery. Counts of written accounts come from published, non-withdrawn testimony with topic readings and are never stated below 5. Never a model opinion.",
+      "files": [
+        "worker/src/evidence.ts",
+        "worker/src/app.ts",
+        "web/canvas/views.tsx"
+      ],
+      "acceptance": [
+        "Every fact cites a release present in the payload, and the headline repeats only numbers from those facts.",
+        "A before/after headline states both measured values with n and period and names any other documented event inside the window.",
+        "Distribution answers read the published bands and a documented median only; no value is synthesized.",
+        "No account count from 1 to 4 appears in a headline, a fact or a topic notice.",
+        "Fictional employers are labeled in every headline and fact that names them, and a selected group is named so a group number never reads as the employer's.",
+        "The headline answers the measure the question asked about: a measure the question names (manager trust, executive trust) or else a measure of the applied topic, in every view; it never states another measure instead, and when the asked measure has no published value it says so."
+      ],
+      "tests": [
+        "tests/evidence.test.ts: 'answers are assembled only from released numbers…', 'a before/after headline states both measured values…', 'distribution answers read the published bands…', 'account counts below five are never stated…', 'fictional employers are labeled in every headline…', 'a selected group is named in every answer headline and fact…'.",
+        "tests/browser.spec.ts: 'the answer is assembled from published numbers, and each fact opens its evidence'.",
+        "Asked-measure headlines (RT-A1: the red-team probes 'how is manager trust at Northwind Labs', 'Northwind Labs vs Helios Semiconductor on manager trust' and 'what changed in executive trust since the restructuring at Northwind Labs' were each headlined with 'Would work here again'): tests/evidence.test.ts 'measures follow the question’s topic list…', 'the headline answers the asked topic…' and 'a comparison answers the asked topic…', and tests/jev.test.ts 'RT-A1 and RT-ABUSE-08 live-probe regressions…'."
+      ]
+    },
+    {
+      "id": "W-047",
+      "ref": "G2",
+      "phase": "Phase 12 - Brief gaps: evidence engine",
+      "title": "Cohort view beside the whole company",
+      "depends_on": [
+        "W-007",
+        "W-010"
+      ],
+      "scope": "New view 'cohort': the selected group beside the company-wide figure for the same metrics and periods, with unavailable cells explicit and suppression respected.",
+      "files": [
+        "worker/src/evidence.ts",
+        "worker/src/app.ts",
+        "worker/src/jev.ts",
+        "web/canvas/views.tsx"
+      ],
+      "acceptance": [
+        "The cohort view shows the selected group beside the whole company for the same metrics and periods.",
+        "Missing or suppressed cells are stated as unavailable; nothing is substituted from another group or period.",
+        "Without a chosen group the canvas asks which published group before any retrieval or ranking; an employer with no published groups is told so.",
+        "Every cohort cell opens in the Evidence Lens with its group label, verification method and provenance."
+      ],
+      "tests": [
+        "tests/evidence.test.ts: 'the cohort view puts the group beside the whole company…', 'the cohort view on an employer without published groups says so…', 'every cohort fact opens in the lens…'.",
+        "tests/api.test.ts: 'a cohort question without a group asks before anything is ranked…'; tests/jev.test.ts: 'the cohort view asks which published group to compare…'."
+      ]
+    },
+    {
+      "id": "W-048",
+      "ref": "G3",
+      "phase": "Phase 12 - Brief gaps: evidence engine",
+      "title": "Explicit Jev route decision",
+      "depends_on": [
+        "W-006"
+      ],
+      "scope": "Jev answers a route Choice (metric_view, comparison, timeline, distribution, cohort, evidence, clusters, existing_faq, discovery, needs_generation, cannot_safely_answer) recorded on the interpretation. needs_generation shows the nearest evidence view with the notice 'This product does not generate answers; here is the evidence we have'. cannot_safely_answer shows nothing new and keeps the canvas.",
+      "files": [
+        "worker/src/jev.ts",
+        "worker/src/interpretation.ts",
+        "worker/src/app.ts",
+        "tools/eval-intents.mjs"
+      ],
+      "acceptance": [
+        "The route is a validated Choice recorded on the interpretation with its probability; legacy route values from an older inference worker are mapped, not degraded.",
+        "needs_generation shows the nearest evidence view, the notice and a deterministic answer, never prose; the notice leaves once the reader picks a view.",
+        "cannot_safely_answer applies only when both the route choice and the 'unsupported' judgment are at least 0.8; otherwise the request is answered with evidence.",
+        "A query that is essentially one confidently resolved employer name routes to that employer's record and is never refused.",
+        "A before/after request naming an employer with exactly one documented event of that kind selects that event deterministically, shown as an editable chip labeled inferred."
+      ],
+      "tests": [
+        "tests/jev.test.ts: 'the route is a Jev Choice: needs_generation keeps the nearest evidence view…', 'a needs_generation question shows evidence with its notice…'.",
+        "tests/api.test.ts: 'route settlement…', 'legacy route values from an older inference worker are mapped…'.",
+        "Live evaluation cases in tools/eval-intents.mjs for a bare employer name, a single-event before/after request and the 0.8 unsafe threshold, with results in docs/evaluation.md."
+      ]
+    },
+    {
+      "id": "W-049",
+      "ref": "G4",
+      "phase": "Phase 12 - Brief gaps: evidence engine",
+      "title": "Written-account topic map",
+      "depends_on": [
+        "W-036"
+      ],
+      "scope": "Optional panel: per dimension, the number of published accounts with a confident model reading and the positive/negative/mixed split, labeled as a model reading of written accounts and never as votes.",
+      "files": [
+        "worker/src/evidence.ts",
+        "worker/src/types.ts",
+        "web/canvas/views.tsx"
+      ],
+      "acceptance": [
+        "Counts cover confident readings of published, non-withheld, non-withdrawn accounts on the page's filters, labeled 'model reading of written accounts, not votes'.",
+        "A dimension with fewer than 5 readings, or with any positive/negative/mixed cell from 1 to 4, is omitted, so no count below 5 can be shown or derived by subtraction.",
+        "Readings never enter survey aggregates, answers as votes, or moderation."
+      ],
+      "tests": [
+        "tests/evidence.test.ts: 'account readings count confident model readings per dimension, omit dimensions under five, and ignore withheld accounts'."
+      ]
+    },
+    {
+      "id": "W-050",
+      "ref": "G5",
+      "phase": "Phase 12 - Brief gaps: evidence engine",
+      "title": "Evidence Lens related accounts by topic",
+      "depends_on": [
+        "W-011",
+        "W-036"
+      ],
+      "scope": "For a metric, the Evidence Lens lists the related accounts and clusters by topic mapping, not the latest unrelated testimony.",
+      "files": [
+        "worker/src/evidence.ts",
+        "web/canvas/lens.tsx"
+      ],
+      "acceptance": [
+        "Related accounts and clusters for a metric come from the accounts the page's filters select, by topic mapping, never by recency.",
+        "At most 12 related ids, current page first, and every related id is reachable by paging.",
+        "A cluster counts as related only when at least half of its sources mention the topic."
+      ],
+      "tests": [
+        "tests/evidence.test.ts: 'the Evidence Lens relates accounts and clusters to a metric by topic only, never by recency', 'Evidence Lens relations stay inside the page…'."
+      ]
+    },
+    {
+      "id": "W-051",
+      "ref": "G6",
+      "phase": "Phase 12 - Brief gaps: evidence engine",
+      "title": "Optional semantic retrieval over published text",
+      "depends_on": [
+        "W-040"
+      ],
+      "scope": "Candidate retrieval with Workers AI embeddings and Vectorize for PUBLISHED text only, active only when the binding and its deletion ledger exist, with a deterministic lexical fallback. Drafts are never embedded.",
+      "files": [
+        "worker/inference-core.ts",
+        "worker/src/app.ts",
+        "inference.wrangler.jsonc",
+        "db/migrations/"
+      ],
+      "acceptance": [
+        "Only published, non-withdrawn, non-identifying text is embedded; drafts, screening inputs and challenge reasons never are.",
+        "Without the VECTORIZE binding or the vector deletion-ledger migration, retrieval indexes nothing, calls nothing, and ranking falls back to the lexical order.",
+        "A withdrawal sweeps its vector, a withdrawal racing an upsert leaves no orphan, and retrieval never returns a withdrawn account in the meantime.",
+        "Semantic candidates are used only when they pass the page filters and never fill every ranking slot.",
+        "The privacy policy and sub-processor list describe it before the binding is added."
+      ],
+      "tests": [
+        "tests/jev.test.ts: 'optional semantic retrieval embeds only published, non-identifying text…', 'without its deletion ledger or its bindings, semantic retrieval indexes nothing…', 'a failed embedding keeps its deletion ledger entry…', 'a withdrawal racing an upsert never leaves an orphaned vector', 'an account whose embedding keeps failing never starves the rest…'.",
+        "tests/api.test.ts: 'semantic candidates are used only when they pass the page filters…'; tests/evidence.test.ts: 'semantic retrieval candidates are kept only when they pass the page filters…'."
+      ]
+    },
+    {
+      "id": "W-052",
+      "ref": "G7",
+      "phase": "Phase 12 - Brief gaps: evidence engine",
+      "title": "Break-glass trustee mechanism, disabled",
+      "depends_on": [
+        "W-015"
+      ],
+      "scope": "The 2-of-3 trustee exception mechanism implemented and tested but switched off: no trustee keys are configured, so the product says trustee exceptions are off. Enabling it with independent trustees is W-032.",
+      "files": [
+        "shared/trustees.ts",
+        "worker/src/moderation.ts",
+        "shared/policy.ts"
+      ],
+      "acceptance": [
+        "Trustees sign a domain-separated message bound to the deployment origin over action, one named account, expiry and nonce; one signature, a repeated trustee, a revoked trustee, a forged or expired action, an over-long expiry and another deployment's origin are refused; two distinct trustees pass.",
+        "A nonce works once; the expiry is recorded before the public transparency entry and the account is withheld only after that entry; the account returns when the exception lapses; an interrupted exception is completed only if it was logged, and never acts otherwise.",
+        "With TRUSTEE_KEYS unset the route answers 503, no normal route can remove an account, and every page that mentions trustee exceptions says they are off."
+      ],
+      "tests": [
+        "tests/moderation.test.ts: 'trustee signatures: one signature, the same trustee twice…', 'break-glass is disabled while TRUSTEE_KEYS is unset…', 'with three trustee keys, two signatures withhold one named account…', 'an interrupted trustee exception never leaves a hold without an end…', 'the site worker serves the moderation routes with its origin check, and break-glass stays disabled through it'.",
+        "tests/safety.test.ts: 'legal: switches come from env and the same checks the moderation module applies'."
+      ]
+    },
+    {
+      "id": "W-053",
+      "ref": "G8",
+      "phase": "Phase 12 - Brief gaps: evidence engine",
+      "title": "Constitutional moderation engine",
+      "depends_on": [
+        "W-014",
+        "W-025"
+      ],
+      "scope": "The running engine behind Phase 10: executable policy, equal-access challenges, anonymous juror tokens, random 7-seat juries, automatic 9-seat appeals, receipts and public statistics. Real-employer juries stay off until W-027's eligibility proofs exist; practice juries run for the fictional employers.",
+      "files": [
+        "shared/policy.ts",
+        "worker/src/moderation.ts",
+        "worker/src/submissions.ts",
+        "worker/issuer.ts",
+        "shared/proof.ts",
+        "db/intake-migrations/",
+        "db/migrations/0005_moderation_public.sql"
+      ],
+      "acceptance": [
+        "The executable policy (jury ranges, thresholds, juror counts, ground terms) is served at /moderation/vX.Y.Z.json with a verifiable digest, and every decision pins the version and digest.",
+        "Challenges: any reader, no organization, priority or override field; a cited published rule; a relevance check by Jev or, when it is unavailable, the published ground terms; reputational discomfort is not a ground; a re-check under the pinned policy; anonymous per-client daily budgets (5 per client per UTC day) kept only as keyed digests deleted after the day; duplicate merge; decided rules are final for the same published words.",
+        "Personal-attack uncertainty (ABUSE-02) asks the author to repair at 0.85 or above and publishes below it; juries decide only spam and manipulation uncertainty and challenges.",
+        "Seeded fictional fixtures cannot be withheld by a challenge or a jury; such challenges are recorded as practice cases with an honest receipt.",
+        "Juror tokens are blind, use per-employer juror keys and staff one seat each; at most 3 tokens per mailbox, employer and quarter. On real-employer juries a token is never drawn for a case about its own employer and one employer's tokens fill at most 2 seats on a case; practice juries (fictional employers, policy 0.7.0) have neither limit.",
+        "Juries: 7 random seats, one YES/NO/UNSURE question on one rule with a masked passage, votes blind until close, quorum, expiry and seat replacement, and an honest pending state when jurors are insufficient, never simulated votes.",
+        "Appeals: the author appeals with the capability; 9 fresh seats decide without seeing the first result (the case payload omits stage and juror count); the result is final.",
+        "Receipts are author-visible per item; public statistics (published automatically, repairs, jury, rejected, legal, appeals, overturned, held by reason) reconcile to the outcome records and show counts below 5 as <5."
+      ],
+      "tests": [
+        "tests/moderation.test.ts (policy history, challenge flow, budgets, juries, appeals, receipts, statistics, prompt injection).",
+        "tests/publication.test.ts: 'decisions pin policy version, digest, matched rules…', 'every rule fires at its threshold and not just below it'.",
+        "tests/protocol.test.ts juror-token tests; tests/browser-contribute.spec.ts 'jury: …', 'challenge: …', 'status: …' specs."
+      ]
+    },
+    {
+      "id": "W-054",
+      "ref": "U1",
+      "phase": "Phase 13 - Brief gaps: interface",
+      "title": "One input, typed-state URLs and history",
+      "depends_on": [
+        "W-008",
+        "W-010"
+      ],
+      "scope": "One input with no modes. A sole company match navigates to /c/<slug> with history.pushState; comparisons, discovery and timelines keep typed URL state; back and forward restore views without re-running inference.",
+      "files": [
+        "web/app.tsx",
+        "web/share.ts",
+        "web/canvas/composer.tsx"
+      ],
+      "acceptance": [
+        "A question that is exactly one listed name navigates to /c/<slug> on the device with history.pushState and no hosted inference.",
+        "Comparisons, discovery and timelines keep only typed public ids in the URL; raw query text lives only in history.state, never in the URL.",
+        "Back and forward restore each view without asking Jev again.",
+        "A crafted link cannot put unpublished group or industry words on a page or into a shared address."
+      ],
+      "tests": [
+        "tests/web.test.ts: 'typed-state URLs carry only typed public identifiers…', 'a typed state round-trips through its URL…', 'only a question that is exactly a listed name navigates…', 'a link cannot put unpublished group or industry words on a page…'.",
+        "tests/browser.spec.ts: 'back and forward restore each view without asking Jev again…', 'a question that is only a listed employer name navigates on the device…', 'a crafted link cannot put its own words…'."
+      ]
+    },
+    {
+      "id": "W-055",
+      "ref": "U2",
+      "phase": "Phase 13 - Brief gaps: interface",
+      "title": "On-device semantic cursor",
+      "depends_on": [
+        "W-008"
+      ],
+      "scope": "While typing, with Live off or on, deterministic local matching of directory names and aliases, group labels, event labels and a topic lexicon produces transient annotations under the matched words, with no network. Server annotations replace them on submit or Live.",
+      "files": [
+        "web/canvas/composer.tsx",
+        "web/local-intent.ts",
+        "worker/src/jev.ts"
+      ],
+      "acceptance": [
+        "Local matching of names, aliases, groups, events and topics runs on the device with exact offsets and makes no network or storage call.",
+        "Jev's annotations replace the local ones on submit or Live; they cover only applied concepts, never overlap, and never state a population count.",
+        "Medium-confidence chips show a '?' affordance that opens the clarification."
+      ],
+      "tests": [
+        "tests/web.test.ts: 'the semantic cursor matches directory names, groups, events and topics on the device, with exact offsets', 'cursor segments reproduce the text exactly…', 'the on-device modules cannot reach the network or storage'.",
+        "tests/jev.test.ts: 'annotations locate only applied concepts in the query text, without overlaps'; tests/browser.spec.ts: 'typing stays on this device until an explicit submit, and the semantic cursor recognises concepts locally'."
+      ]
+    },
+    {
+      "id": "W-056",
+      "ref": "U3",
+      "phase": "Phase 13 - Brief gaps: interface",
+      "title": "Confidence panel with probabilities",
+      "depends_on": [
+        "W-009"
+      ],
+      "scope": "The confidence panel shows model probabilities; low confidence asks; the last valid canvas stays.",
+      "files": [
+        "web/app.tsx",
+        "web/canvas/parts.tsx",
+        "worker/src/jev.ts"
+      ],
+      "acceptance": [
+        "Tentative readings list each alternative as 'N% model probability' with the note that model probability says nothing about the evidence.",
+        "Low confidence asks, listing the weak options and an unset choice, and the last valid canvas stays in place.",
+        "An ambiguous-meaning question such as 'how political is engineering?' forks between meanings (promotion politics, team culture, leadership politics) with probabilities, on the home page and on company pages."
+      ],
+      "tests": [
+        "tests/jev.test.ts: 'mid-confidence primary readings apply tentatively…', 'low-confidence primary readings are never applied…'.",
+        "tests/browser.spec.ts: 'an ask keeps the last view in place, a tentative reading replaces it, and chips describe the view on screen'.",
+        "An ambiguous-meaning case in tools/eval-intents.mjs and a browser or jev test for the fork on the home page and on a company page."
+      ]
+    },
+    {
+      "id": "W-057",
+      "ref": "U4",
+      "phase": "Phase 13 - Brief gaps: interface",
+      "title": "Split compare, cohort view and answer headline",
+      "depends_on": [
+        "W-010",
+        "W-046",
+        "W-047"
+      ],
+      "scope": "Compare physically splits the canvas; the cohort view renders; a deterministic answer headline sits above every view with facts that open the lens; the footer states that no answers are generated.",
+      "files": [
+        "web/app.tsx",
+        "web/canvas/views.tsx",
+        "web/canvas/lens.tsx",
+        "web/styles.css"
+      ],
+      "acceptance": [
+        "Compare renders two aligned sides with per-side availability for each metric.",
+        "The cohort view renders the group beside the whole company.",
+        "Every view has the deterministic answer headline above it, and each fact opens the Evidence Lens.",
+        "The canvas footer reads 'No generated answers. Jev classified your intent; published evidence built this view.' (or the controls variant when Jev did not classify)."
+      ],
+      "tests": [
+        "tests/browser.spec.ts: 'the answer is assembled from published numbers, and each fact opens its evidence', 'one orchestrated morph between views…'."
+      ]
+    },
+    {
+      "id": "W-058",
+      "ref": "U5",
+      "phase": "Phase 13 - Brief gaps: interface",
+      "title": "Privacy editor with approved repairs",
+      "depends_on": [
+        "W-013"
+      ],
+      "scope": "Risk tokens highlighted inline, a sequential 'Make safer' approval flow, an identifying-details meter from real findings with a not-a-guarantee note, the Jev contextual check after consent, repair cards for names, personal characterizations and broad allegations, and undo.",
+      "files": [
+        "web/submit.tsx",
+        "shared/privacy.ts"
+      ],
+      "acceptance": [
+        "Risk tokens are marked inline (high/medium) from on-device findings, and typing sends nothing.",
+        "'Make safer' walks each proposed edit in order and changes only what the author approves; a medium detail may be kept as written, a high one may not.",
+        "The meter counts only real findings and says it is not an anonymity guarantee.",
+        "Repair cards ask what specifically happened and change the text only with the author's own approved words.",
+        "Undo restores exactly the edited words and refuses visibly when later typing touched them.",
+        "The hosted Jev check runs only after explicit consent and never while a must-change detail remains.",
+        "A person's full name is found and replaced as a whole, including a name set off by commas ('Our director, Priya Raman, …'); approving it leaves no first name or surname of that person elsewhere in the draft ('… Lee said', '… Becker was').",
+        "Approved suggestions leave grammatical text: no stranded preposition ('on during that period'), 'a' and 'an' agree with the next word ('an staff engineer'), and a replacement at the start of a sentence keeps its capital."
+      ],
+      "tests": [
+        "tests/browser-contribute.spec.ts: 'privacy editor: typing sends nothing…', 'make safer: …', 'adversarial: a medium detail can be kept as written…', 'write it my way: …', 'the draft reaches Jev only after explicit consent…', 'invariant: …', 'undo refuses…'.",
+        "A test (tests/web.test.ts or tests/browser-contribute.spec.ts) that approving every suggestion for the docs/demo.md Flow 2 draft and for 'Our director, Priya Raman, yelled at Tom Becker … Later Raman said Becker was lazy' leaves no name part and no broken grammar (red-team RT-C2 and RT-C3)."
+      ]
+    },
+    {
+      "id": "W-059",
+      "ref": "U6",
+      "phase": "Phase 13 - Brief gaps: interface",
+      "title": "Share links, Open Graph and the opens-after state",
+      "depends_on": [
+        "W-054"
+      ],
+      "scope": "'Share this view' with typed-state URLs, per-company Open Graph metadata and images, and a real-employer empty state that says the record opens after 25 verified coworkers contribute, with an invite action and no counts.",
+      "files": [
+        "web/share.ts",
+        "web/app.tsx",
+        "worker/src/og.ts",
+        "tools/og.mjs"
+      ],
+      "acceptance": [
+        "'Share this view' uses the Web Share API or copies a typed-state link; the question text is never in the link.",
+        "Open Graph metadata and images label fictional employers and carry no statistics.",
+        "A real employer with nothing published shows 'This record opens after 25 verified coworkers contribute' as its only heading, with an invite/share action and no counts."
+      ],
+      "tests": [
+        "tests/browser.spec.ts: 'sharing copies a typed-state link and never the question', 'a real employer with nothing published shows the opens-after rule, an invite action and no counts'.",
+        "tests/web.test.ts: 'share images label fictional employers and carry no statistics', 'page metadata names fictional employers as fictional…', 'seeded employers have their own Open Graph image…', 'every employer in the directory the worker serves names an Open Graph image the worker serves…', 'Open Graph images are served only for known names, as JPEG'."
+      ]
+    },
+    {
+      "id": "W-060",
+      "ref": "U7",
+      "phase": "Phase 13 - Brief gaps: interface",
+      "title": "Jury page, challenges and author status",
+      "depends_on": [
+        "W-053"
+      ],
+      "scope": "The /jury page, a challenge action on every published account, the author status and receipt page by capability, and the appeal action.",
+      "files": [
+        "web/jury.tsx",
+        "web/app.tsx",
+        "worker/src/moderation.ts"
+      ],
+      "acceptance": [
+        "/jury uses blind juror tokens, one case at a time, an explicit YES/NO/UNSURE choice, says 'no case' in the server's words without spending the token, and discards refused or spent tokens.",
+        "Every published account offers a challenge under a cited published rule, with no special employer button; identifying reasons are blocked on the device.",
+        "/status shows receipts, jury state and the appeal from the server using only the capability, which never enters the address bar.",
+        "When no jury is operational the page says so and offers no token flow."
+      ],
+      "tests": [
+        "tests/browser-contribute.spec.ts: 'jury: …', 'status: …', 'challenge: …', 'jury seam: the real /api/jury/assign reply…'.",
+        "tests/browser.spec.ts: 'every published account offers a challenge under a published rule…', 'the jury and status routes render inside the site frame'."
+      ]
+    },
+    {
+      "id": "W-061",
+      "ref": "U8",
+      "phase": "Phase 13 - Brief gaps: interface",
+      "title": "Visual system, motion and accessibility",
+      "depends_on": [
+        "W-003"
+      ],
+      "scope": "Keep the DeepSeek-inspired direction; remove all-caps eyebrow chrome and middle-dot meta strings; WCAG AA contrast for trust microcopy; dark mode; one orchestrated motion moment (canvas morph through view transitions) plus action-driven motion only; reduced motion respected; visible keyboard focus; no overflow at 390px.",
+      "files": [
+        "web/styles.css",
+        "web/app.tsx",
+        "worker/src/pages.ts"
+      ],
+      "acceptance": [
+        "No all-caps eyebrow chrome and no middle-dot meta strings in the product UI or trust pages.",
+        "Trust microcopy meets WCAG AA contrast in light and dark, and keyboard focus is visible, including in forced-colors mode.",
+        "Dark mode follows the system and the theme switch stores only an explicit choice.",
+        "Exactly one orchestrated canvas morph through view transitions, with none (including the view-transition group) when reduced motion is requested.",
+        "At 390px no page scrolls sideways."
+      ],
+      "tests": [
+        "tests/browser.spec.ts: 'dark mode follows the system…', 'one orchestrated morph between views, and none when reduced motion is requested', 'at 390px wide nothing overflows horizontally…'.",
+        "tests/browser-contribute.spec.ts: '390px: contribution, jury and status pages do not scroll sideways'; tests/web.test.ts: 'every server-rendered page carries the legal links, sentence-case headings and labelled tables'.",
+        "Run against the real three-worker stack, not only a harness."
+      ]
+    },
+    {
+      "id": "W-062",
+      "ref": "L1",
+      "phase": "Phase 14 - Legal and liability",
+      "title": "Versioned Privacy Policy",
+      "depends_on": [
+        "W-016"
+      ],
+      "scope": "/privacy becomes a complete, versioned Privacy Policy (effective date and change log) that keeps the privacy-architecture explanation, rendered from worker/src/legal.ts with numbers read from the code. Drafts for attorney review, not legal advice.",
+      "files": [
+        "worker/src/legal.ts",
+        "shared/brand.ts",
+        "docs/legal/privacy-policy.md",
+        "tests/safety.test.ts"
+      ],
+      "acceptance": [
+        "The page renders from legal.ts, and docs/legal/privacy-policy.md matches what the worker renders.",
+        "A data inventory per component (browser, verifier, publisher, inference, network), purposes and legal bases, and a retention table whose numbers are read from the code, including the 30-day held and 180-day unbatched limits, challenge and quota retention, D1 point-in-time recovery, and the 12-month scrub of records kept after withdrawal or expiry.",
+        "An AI section: Jev through Workers AI and AI Gateway with logging and caching off per request, the TypeSafe API fallback, what each receives, no generated answers, automated moderation and how to get human review, and the GDPR Article 22 note.",
+        "Named sub-processors; no sale or sharing; no cookies, analytics, pixels or session replay; rights, 18+, transfers, security, breach notice, changes and contact.",
+        "The on-device crisis card, server crisis resources and self-harm screening, per-day de-duplication digests, identical verifier emails and the sensitive-data statement are described exactly as the code behaves.",
+        "Owner facts that are still missing are listed as pending and never asserted, and a visible 'Draft — pending attorney review' notice shows until LEGAL_REVIEWED is true."
+      ],
+      "tests": [
+        "tests/safety.test.ts legal tests: 'legal: docs/legal/*.md match what worker/src/legal.ts renders…', 'legal: retention, batch and jury numbers are rendered from the moderation policy', 'legal: numbers and behavior fixed in code outside the policy still match their source', 'legal: every configuration renders clean…', 'legal: owner facts that are still missing are listed and described as pending…'."
+      ]
+    },
+    {
+      "id": "W-063",
+      "ref": "L2",
+      "phase": "Phase 14 - Legal and liability",
+      "title": "Terms of Use",
+      "depends_on": [
+        "W-016",
+        "W-025"
+      ],
+      "scope": "/terms: eligibility, content rules as the executable constitution, ownership and license of testimony, attributed allegations, notice and challenge, legal notices, DMCA, disclaimers and liability, governing law and venue in Texas, USA. Drafts for attorney review, not legal advice.",
+      "files": [
+        "worker/src/legal.ts",
+        "shared/brand.ts",
+        "docs/legal/terms.md",
+        "tests/safety.test.ts"
+      ],
+      "acceptance": [
+        "Users must be 18 or older; the content rules are the executable constitution (linked); accounts must be truthful and firsthand; no naming private individuals, doxxing, threats, trade secrets or confidential information, or harassment.",
+        "Testimony stays the author's (license to display and aggregate; withdrawal); allegations are attributed testimony that the platform does not verify or endorse; no affiliation with any employer, names used descriptively, no logos.",
+        "Notice and challenge follow the published rules with equal access, and juries and appeals are described as they actually run; legal notices and court orders go to legal@ and the legal-requests ledger; trustee break-glass is described only as it is enabled.",
+        "A DMCA policy with a designated agent at dmca@, with registration with the US Copyright Office stated as pending until it is done.",
+        "Jurors are volunteers; no payments, subscriptions or trials; disclaimers, limitation of liability and indemnity; governing law and venue in Texas, USA; changes with notice; contact.",
+        "The legal operator is named only in legal text, never as product branding."
+      ],
+      "tests": [
+        "tests/safety.test.ts: 'legal: challenges and juries are described as they run…', 'legal: the operator is named only in legal text, never as product branding', 'legal: every site path a legal page links to is served by the worker', 'legal: the version and changelog agree…'."
+      ]
+    },
+    {
+      "id": "W-064",
+      "ref": "L3",
+      "phase": "Phase 14 - Legal and liability",
+      "title": "Accessibility statement and fixes",
+      "depends_on": [
+        "W-061"
+      ],
+      "scope": "/accessibility states the WCAG 2.2 AA target, the known gaps and a contact, and the contrast, focus and keyboard issues are actually fixed.",
+      "files": [
+        "worker/src/legal.ts",
+        "worker/src/pages.ts",
+        "web/styles.css",
+        "docs/legal/accessibility.md"
+      ],
+      "acceptance": [
+        "/accessibility states the WCAG 2.2 AA target, lists only gaps that still exist, and gives a contact.",
+        "The contrast, focus and keyboard issues found in the audit are fixed and covered by browser specs run against the real stack."
+      ],
+      "tests": [
+        "tests/browser.spec.ts: 'the evidence lens shows wording, sample size, period and release ids, and Escape returns focus to the number', 'every page carries the privacy, terms, accessibility and legal-requests links'.",
+        "tests/web.test.ts: 'every server-rendered page carries the legal links, sentence-case headings and labelled tables'; tests/safety.test.ts legal render tests."
+      ]
+    },
+    {
+      "id": "W-065",
+      "ref": "L4",
+      "phase": "Phase 14 - Legal and liability",
+      "title": "Crisis resources",
+      "depends_on": [
+        "W-058"
+      ],
+      "scope": "A deterministic on-device lexicon for self-harm, suicide and imminent danger shows a calm resource card in the composer and the contribution editor without blocking, storing or sending anything. Optional server-side resources and a Jev self_harm judgment only ever show resources to the author.",
+      "files": [
+        "shared/safety.ts",
+        "web/canvas/composer.tsx",
+        "web/submit.tsx",
+        "worker/src/app.ts",
+        "worker/inference-core.ts",
+        "wrangler.jsonc",
+        "inference.wrangler.jsonc"
+      ],
+      "acceptance": [
+        "The on-device detector suppresses clear workplace idioms but shows the card for explicit self-harm phrases, including comparatives such as \"I'd rather be dead than …\".",
+        "The card (988 call, text and chat in the US, findahelpline.com elsewhere, emergency numbers labeled by region) never blocks, stores or sends anything.",
+        "With CRISIS_RESOURCES_ENABLED the server lexicon adds resources to canvas, screen, submit and revise replies; with SELF_HARM_SCREENING Jev's self_harm judgment only shows resources to the author, is never stored and is never a moderation outcome; server-provided resources use their own privacy copy.",
+        "The card and both switches are enabled together and disclosed in the privacy policy."
+      ],
+      "tests": [
+        "tests/safety.test.ts crisis-detector tests; tests/api.test.ts: 'crisis language returns support resources to the asker only…', 'server-side crisis resources stay off until CRISIS_RESOURCES_ENABLED is set…', 'submit and revise replies carry support resources…'.",
+        "tests/publication.test.ts: 'Jev’s self-harm answer only offers the author support resources…'; tests/browser.spec.ts: 'crisis resources come from an on-device check and send nothing'; tests/browser-contribute.spec.ts crisis specs."
+      ]
+    },
+    {
+      "id": "W-066",
+      "ref": "L5",
+      "phase": "Phase 14 - Legal and liability",
+      "title": "Deletion proof",
+      "depends_on": [
+        "W-015"
+      ],
+      "scope": "Tests prove that withdrawal and expiry leave nothing behind except inside the disclosed D1 point-in-time-recovery window, and that the client clears its vault on withdraw.",
+      "files": [
+        "worker/src/submissions.ts",
+        "worker/inference-core.ts",
+        "worker/src/moderation.ts",
+        "web/vault.ts",
+        "tests/publication.test.ts"
+      ],
+      "acceptance": [
+        "After withdrawal and after expiry, no body, answers, fingerprints, analysis, pairs, clusters, FAQ evidence, jury passage, vector or device vault entry remains, proven by one test that inspects every table keyed to the account.",
+        "The client clears kept keys and vault entries on withdraw.",
+        "Records kept after withdrawal or expiry are scrubbed after 12 months: the capability hash is replaced and company, period and publication period are removed, keeping only status, verification class and revision."
+      ],
+      "tests": [
+        "tests/publication.test.ts: 'withdrawal erases text, answers, author key and fingerprints, removes the public copy…', 'held cases expire after 30 days and unbatched approved cases after 180…'.",
+        "tests/jev.test.ts: 'a withdrawal during analysis leaves no derived analysis or pairs behind', 'a withdrawal racing an upsert never leaves an orphaned vector'; tests/moderation.test.ts: 'withdrawal ends open cases, erases the passage jurors could see…'.",
+        "tests/browser-contribute.spec.ts: 'a kept signing key and the device database are cleared when the contribution is withdrawn'."
+      ]
+    },
+    {
+      "id": "W-067",
+      "ref": "L6",
+      "phase": "Phase 14 - Legal and liability",
+      "title": "Fictional data labeled everywhere",
+      "depends_on": [
+        "W-005"
+      ],
+      "scope": "Every surface that shows sample employers or data carries the fictional label; samples never appear unlabeled in real-employer records, discovery or share images; no testimonials about the product anywhere.",
+      "files": [
+        "web/app.tsx",
+        "web/canvas/views.tsx",
+        "worker/src/evidence.ts",
+        "worker/src/og.ts"
+      ],
+      "acceptance": [
+        "Every surface that shows a sample employer or sample data carries the fictional label.",
+        "Samples never appear unlabeled in real-employer records, discovery or share images, and discovery separates real from fictional rows.",
+        "Fictional corroboration clusters are labeled illustrative wherever they are shown.",
+        "There are no testimonials about the product anywhere."
+      ],
+      "tests": [
+        "tests/browser.spec.ts: 'fictional employers are labeled on every surface they appear'.",
+        "tests/web.test.ts: 'share images label fictional employers and carry no statistics', 'page metadata names fictional employers as fictional…'; tests/evidence.test.ts: 'fictional employers are labeled in every headline…', 'discovery matches survey_ keys so real employers are found, separated from fictional rows'."
+      ]
+    },
+    {
+      "id": "W-068",
+      "ref": "L7",
+      "phase": "Phase 14 - Legal and liability",
+      "title": "Storage exposure checks",
+      "depends_on": [
+        "W-018"
+      ],
+      "scope": "Prove that the transparency archive bucket is not publicly reachable and that the source download cannot leak secrets.",
+      "files": [
+        "tools/verify-deployment.mjs",
+        "tools/build.mjs",
+        "worker/src/app.ts",
+        "wrangler.jsonc"
+      ],
+      "acceptance": [
+        "A deploy check proves the ARCHIVES R2 bucket has no public r2.dev or custom-domain access and archives are served only through the worker.",
+        "/api/source serves only an explicit allowlist of directories and extensions and never dotfiles, .dev.vars, .env, secrets or key files, proven by a test over the built bundle."
+      ],
+      "tests": [
+        "A test over SOURCE_FILES in worker/generated/client-assets.ts; a verify-deployment check against the r2.dev URL and the bucket's custom domains."
+      ]
+    },
+    {
+      "id": "W-069",
+      "ref": "L8",
+      "phase": "Phase 14 - Legal and liability",
+      "title": "Legal links and consent in the submit flow",
+      "depends_on": [
+        "W-012"
+      ],
+      "scope": "Privacy, Terms, Accessibility and Legal requests links on every page; the submit flow links Terms and Privacy before submit and requires an 18+ confirmation; consent fields are enforced by the server.",
+      "files": [
+        "web/submit.tsx",
+        "worker/src/pages.ts",
+        "worker/src/submissions.ts"
+      ],
+      "acceptance": [
+        "Every page carries Privacy, Terms, Accessibility and Legal requests links.",
+        "The submit flow links Terms and Privacy before submit and requires an explicit 18+ confirmation, and the server refuses a submission without adultConfirmed:true.",
+        "An explicit, unchecked statement about sensitive information concerning the author is sent as sensitiveConsent and stored only as a boolean on the intake row, erased with it; juryReviewConsent is enforced by the server."
+      ],
+      "tests": [
+        "tests/browser.spec.ts: 'every page carries the privacy, terms, accessibility and legal-requests links'; tests/web.test.ts: 'every server-rendered page carries the legal links…'.",
+        "tests/browser-contribute.spec.ts: 'submitting needs an explicit 18+ confirmation beside Terms and Privacy links…'; server tests for adultConfirmed and sensitiveConsent in tests/publication.test.ts."
+      ]
+    },
+    {
+      "id": "W-070",
+      "ref": "H1",
+      "phase": "Phase 15 - Hardening",
+      "title": "Key and bundle transparency with a public log",
+      "depends_on": [
+        "W-014"
+      ],
+      "scope": "A signed release manifest (client asset hashes, source digests including the lockfile, issuer key fingerprints and purposes, policy, legal) signed with an offline Ed25519 key, append-only release records, a Rekor entry, and an issuer-key registry pinned in the client build.",
+      "files": [
+        "tools/transparency.mjs",
+        "tools/verify-deployment.mjs",
+        "worker/src/release.ts",
+        "shared/proof.ts",
+        "tools/build.mjs",
+        "web/submit.tsx"
+      ],
+      "acceptance": [
+        "tools/transparency.mjs signs the manifest with the offline key, refuses a stale build, writes append-only docs/releases records, and a dry run creates no key.",
+        "/.well-known/siwt-release.json serves the signed manifest verbatim, and the independent watcher verifies the signature, assets, sources, key fingerprints and purposes.",
+        "Each release is recorded in Rekor in an entry type the public log accepts, and the watcher verifies inclusion.",
+        "The client build pins the issuer-key registry digest and refuses keys outside it.",
+        "A rotation and compromise procedure for the release key is documented."
+      ],
+      "tests": [
+        "tests/transparency.test.ts: 'a signed release manifest verifies with both implementations…', 'the optional Rekor entry verifies locally before submission…', 'release records are append-only…', 'a dry run never creates a release key…', 'the deployment watcher fails each kind of tampering…'.",
+        "tests/protocol.test.ts: 'the browser uses a key only when publisher and verifier describe it identically…'."
+      ]
+    },
+    {
+      "id": "W-071",
+      "ref": "H2",
+      "phase": "Phase 15 - Hardening",
+      "title": "Merkle-rooted archives with an external witness",
+      "depends_on": [
+        "W-070"
+      ],
+      "scope": "Transparency archives publish RFC 6962 roots and chain to each other; an independent witness outside the operator's account keeps and countersigns them so a consistent rewrite of history is detectable by anyone.",
+      "files": [
+        "worker/src/ledger.ts",
+        "tools/verify-deployment.mjs"
+      ],
+      "acceptance": [
+        "Each archive publishes RFC 6962 roots over published-account and metric-release leaves, the issuer key registry digest, the release manifest digest and the previous archive's digest, recomputable from the documented method; leaves are never archived.",
+        "verify-deployment.mjs --state pins archive history, and a consistent rewrite of every archive or a fork after the newest pinned archive FAILs.",
+        "At least one witness outside the operator's Cloudflare account fetches each archive and publishes or countersigns its digest, and the watcher checks the witness."
+      ],
+      "tests": [
+        "tests/transparency.test.ts: 'Merkle roots follow RFC 6962…', 'v4 archives are recomputable by the independent watcher…', 'with a state file, the watcher pins archive history…', 'the archive method states every field and encoding…'."
+      ]
+    },
+    {
+      "id": "W-072",
+      "ref": "H3",
+      "phase": "Phase 15 - Hardening",
+      "title": "Issuance caps and velocity breaker",
+      "depends_on": [
+        "W-014"
+      ],
+      "scope": "Per-employer quarterly caps and a rolling 24-hour velocity breaker on credential and juror-token issuance, scaled by headcount band, so one employer or mailbox farm cannot flood a record.",
+      "files": [
+        "worker/issuer.ts",
+        "shared/proof.ts",
+        "db/verifier-migrations/0002_juror_tokens_and_issuance_controls.sql",
+        "tools/provision-issuer.mjs"
+      ],
+      "acceptance": [
+        "Per employer and purpose, the quarterly cap and the 24-hour velocity limit refuse an over-limit batch atomically; a contribution trip pauses both purposes for 24 hours and a juror trip pauses juror tokens only.",
+        "Limits scale with the published headcount band; re-provisioning raises or lowers them at once; a remote provisioning run refuses unreadable bands unless explicitly accepted.",
+        "Fictional-employer issuance is never capped, counted or paused; per-connection limits still apply.",
+        "GET /stats shows bands, caps, velocity limits and pause flags per purpose for the current quarter only, with no timestamps or exact counts."
+      ],
+      "tests": [
+        "tests/protocol.test.ts: 'the quarterly cap per employer is enforced atomically…', 're-provisioning with a larger headcount band raises the cap…', 'a contribution velocity trip pauses both purposes…', 'a juror velocity trip pauses juror tokens only…', 'sandbox (fictional employer) issuance is never capped…', '/stats shows coarse bands…', 'a remote provisioning run cannot silently put real employers on the smallest cap…'."
+      ]
+    },
+    {
+      "id": "W-073",
+      "ref": "H4",
+      "phase": "Phase 15 - Hardening",
+      "title": "OHTTP relay submission",
+      "depends_on": [
+        "W-014"
+      ],
+      "scope": "Contributions and verifier requests can travel through an Oblivious HTTP relay run by a party other than the operator, so the operator's account never sees the contributor's IP address for them.",
+      "files": [
+        "web/submit.tsx",
+        "worker/src/app.ts",
+        "worker/issuer.ts",
+        "docs/hardening-roadmap.md"
+      ],
+      "acceptance": [
+        "The browser can encapsulate submission and verifier requests to the gateway's published key configuration and send them through the relay.",
+        "For relayed requests, the publisher's and verifier's logs, limiter keys and records contain no client address.",
+        "The browser falls back to direct submission only with an explicit notice.",
+        "The relay operator, its logging terms and the key configuration are disclosed in the privacy policy."
+      ],
+      "tests": [
+        "Browser test that relayed request bodies are encapsulated and carry no identifying headers; worker test that a relayed request produces no address-derived limiter key or record."
+      ]
+    },
+    {
+      "id": "W-074",
+      "ref": "H5",
+      "phase": "Phase 15 - Hardening",
+      "title": "Onion service",
+      "depends_on": [
+        "W-018"
+      ],
+      "scope": "Serve the site as a Tor onion service that serves the same signed release, for readers and contributors who need network anonymity.",
+      "files": [
+        "docs/hardening-roadmap.md",
+        "tools/verify-deployment.mjs"
+      ],
+      "acceptance": [
+        "The site is reachable as an onion service serving the same signed release; the onion address is published on the site and in the release manifest.",
+        "The onion front end forwards to the same Workers without adding logs, cookies or third-party scripts, and the watcher verifies it serves the same assets.",
+        "Contributing through the onion address needs no clearnet-only resource."
+      ],
+      "tests": [
+        "verify-deployment check that the onion address serves assets matching the signed manifest."
+      ]
+    },
+    {
+      "id": "W-075",
+      "ref": "H6",
+      "phase": "Phase 15 - Hardening",
+      "title": "Adversarial acceptance suite",
+      "depends_on": [
+        "W-019"
+      ],
+      "scope": "One suite that attacks the running three-worker stack the way an employer, a coordinated group or a curious operator would, and records what it cannot prevent.",
+      "files": [
+        "tests/integration.mjs",
+        "tests/acceptance.test.ts",
+        "tests/moderation.test.ts"
+      ],
+      "acceptance": [
+        "tests/integration.mjs runs against the local three-worker stack with one command and covers forged, expired, replayed and wrong-employer proofs; differencing by withdrawal; crafted links; identifier-bearing payloads toward inference; prompt injection in challenge reasons and passages; coordinated and duplicate challenges; juror-token replay and seat concentration; and trustee-signature abuse.",
+        "Every case asserts the refusal, and outcomes the system cannot prevent (for example one person holding several juror tokens) are recorded in the docs, not hidden.",
+        "The suite fails on any regression."
+      ],
+      "tests": [
+        "tests/integration.mjs against http://localhost:8788, :8789 and :8790; tests/acceptance.test.ts; tests/moderation.test.ts 'prompt-injection text…', 'frivolous challenges cannot suppress…'."
+      ]
+    },
+    {
+      "id": "W-076",
+      "ref": "H7",
+      "phase": "Phase 15 - Hardening",
+      "title": "zkEmail/DKIM employment proofs",
+      "depends_on": [
+        "W-014"
+      ],
+      "scope": "Let a contributor prove control of a work mailbox from a DKIM-signed email with a zero-knowledge proof in the browser, so no verifier learns the address at all.",
+      "files": [
+        "docs/hardening-roadmap.md",
+        "shared/proof.ts",
+        "web/submit.tsx"
+      ],
+      "acceptance": [
+        "A browser-generated zero-knowledge proof over a DKIM-signed email proves the employer domain without revealing the mailbox, and the publisher verifies it offline.",
+        "The proof binds a quarter and a nullifier so one mailbox yields one credential per employer per quarter.",
+        "DKIM key rotation and domain aliases are handled and tested; an employer that controls mailboxes is disclosed as a limit.",
+        "The circuit (and any trusted setup) is reviewed independently before the product claims its strength."
+      ],
+      "tests": [
+        "Proof round-trip, forged-DKIM, wrong-domain, replayed-nullifier and rotated-key tests."
+      ]
+    },
+    {
+      "id": "W-077",
+      "ref": "H8",
+      "phase": "Phase 15 - Hardening",
+      "title": "Independent verifier operator",
+      "depends_on": [
+        "W-014"
+      ],
+      "scope": "Move the verifier Worker, its database and the issuer keys to an organization independent of the publisher's operator, so mailbox verification and testimony no longer share one cloud account.",
+      "files": [
+        "issuer.wrangler.jsonc",
+        "worker/issuer.ts",
+        "tools/provision-issuer.mjs",
+        "docs/operations.md"
+      ],
+      "acceptance": [
+        "The verifier, its database and issuer keys run in an account controlled by an independent organization under a written agreement, and the publisher's operator has no access.",
+        "The publisher trusts the verifier's keys only through the signed registry, and the watcher checks the verifier's deployment against its published release.",
+        "The product and privacy policy name the verifier's operator and drop the same-account limitation only after the move."
+      ],
+      "tests": [
+        "verify-deployment checks against the independent verifier origin; tests/protocol.test.ts key cross-check tests."
+      ]
+    },
+    {
+      "id": "W-078",
+      "ref": "H9",
+      "phase": "Phase 15 - Hardening",
+      "title": "Legal entity, counsel and EU/UK compliance",
+      "depends_on": [
+        "W-062",
+        "W-063"
+      ],
+      "scope": "The legal prerequisites the code cannot supply: counsel review, owner facts, the operator's entity and liability position, and the EU, EEA and UK duties if the service is offered there.",
+      "files": [
+        "shared/brand.ts",
+        "worker/src/legal.ts",
+        "docs/legal/"
+      ],
+      "acceptance": [
+        "Counsel reviews the Privacy Policy and Terms, and LEGAL_REVIEWED is set only after sign-off, which removes the draft notice.",
+        "Owner facts are recorded in shared/brand.ts: mail forwarding verified for privacy@, legal@ and dmca@; the model provider's entity, country, retention, training use and data processing agreement; the DMCA agent registered with the US Copyright Office; the telephone provider.",
+        "For the EU, EEA and UK: GDPR Article 27 representatives (EU and UK), the DSA legal representative, a data protection impact assessment, the UK Online Safety Act illegal-content and children's-access assessments, and the legal basis for sensitive information about other people; or those regions are not served (SERVES_EU_UK=false), or counsel accepts the risk in writing.",
+        "Counsel confirms the legal entity's liability position, and the docs distinguish operational separation from legal protection."
+      ],
+      "tests": [
+        "tests/safety.test.ts: 'legal: owner facts that are still missing are listed and described as pending…' and 'legal: EU and UK duties are pending on the pages until brand.ts records them…' pass, and legalOpenItems() in worker/src/legal.ts no longer lists any item named above."
+      ]
+    },
+    {
+      "id": "W-079",
+      "ref": "H10",
+      "phase": "Phase 15 - Hardening",
+      "title": "Ordered deploy and deployment verification",
+      "depends_on": [
+        "W-003",
+        "W-005",
+        "W-011",
+        "W-015",
+        "W-018",
+        "W-019",
+        "W-062",
+        "W-063",
+        "W-069",
+        "W-080",
+        "W-081",
+        "W-082",
+        "W-083",
+        "W-084"
+      ],
+      "scope": "Deploy the reconciled release in the documented order and prove what is live: remote migrations with backups and row counts, then inference, then the verifier, then the main worker, then verify-deployment.",
+      "files": [
+        "tools/db.mjs",
+        "tools/provision-issuer.mjs",
+        "tools/transparency.mjs",
+        "tools/verify-deployment.mjs",
+        "docs/operations.md",
+        "wrangler.jsonc",
+        "inference.wrangler.jsonc",
+        "issuer.wrangler.jsonc"
+      ],
+      "acceptance": [
+        "Remote migrations are applied with tools/db.mjs after a backup and recorded row counts; issuer keys are provisioned; then inference, the verifier and the main worker are deployed in that order.",
+        "The release is built and signed with tools/transparency.mjs and its record is committed.",
+        "node tools/verify-deployment.mjs --state=<file> reports no FAIL against https://shouldiworkthere.com and the verifier origin, and the state file is kept.",
+        "Post-deploy checks pass: security headers on the apex (CSP connect-src, HSTS); no Cloudflare-injected script or cookie (Email Address Obfuscation, Rocket Loader, Web Analytics, Zaraz, __cf_bm, cf_clearance); the archive bucket is not publicly reachable; production row counts match what the privacy policy states.",
+        "Switches (REAL_PUBLICATION_ENABLED, JURY_ENABLED, TRUSTEE_KEYS, the crisis switches, RATE_LIMIT_SECRET) are set as the policy discloses, and the three database bindings are verified against the account.",
+        "Launch release (September 23, 2026): the legal gate in docs/operations.md step 0 is closed before anything remote runs (counsel has approved the exact legal text being served and LEGAL_REVIEWED_VERSION records it, and the query for contributions submitted under 1.1.0 still waiting returns no rows); INTERNAL_TOKEN is set on both workers; the sample purge is applied after a dry run and a bookmark, and a second dry run reports zero rows; issuer keys are provisioned without samples; verify-deployment reports fictional employers hidden, no sandbox key served by either host, listing open and identical community keys on both hosts; no listing, contribution or jury seat is created in production to test."
+      ],
+      "tests": [
+        "node tools/verify-deployment.mjs --state=.siwt-watch-state.json output with no FAIL; header and zone scan of the apex recorded in the ticket log.",
+        "For the launch release: the purge dry-run output (zero rows) and the smoke checks of docs/operations.md step 12 (/api/config shows sampleEmployers false, /c/northwind-labs answers 404, a listing without a proof of work is refused with pow_missing) recorded in the ticket log."
+      ]
+    },
+    {
+      "id": "W-080",
+      "phase": "Phase 16 - Public launch",
+      "title": "Zero-data production: sample employer switch and purge",
+      "depends_on": [
+        "W-005",
+        "W-067"
+      ],
+      "scope": "Owner decision of September 23, 2026: production holds no fictional sample employers, fixtures, practice content or test records. SAMPLE_EMPLOYERS on the main worker and on the verifier ('on' locally and in tests, 'off' in production) hides every kind='sample' employer and its sandbox keys, and tools/purge-samples.mjs removes the fictional data and the pre-launch test records from the production databases.",
+      "files": [
+        "worker/src/flags.ts",
+        "worker/src/app.ts",
+        "worker/src/pages.ts",
+        "worker/issuer.ts",
+        "wrangler.jsonc",
+        "issuer.wrangler.jsonc",
+        "tools/purge-samples.mjs",
+        "tools/provision-issuer.mjs",
+        "tools/prepare-local.mjs",
+        "tools/build.mjs",
+        "tools/transparency.mjs",
+        "tools/verify-deployment.mjs",
+        "db/issuer-public-keys.json",
+        "docs/operations.md"
+      ],
+      "acceptance": [
+        "While the main worker's SAMPLE_EMPLOYERS is not exactly 'on', no kind='sample' employer appears anywhere: the directory, search and Jev company options, discovery, /c/<slug> (404), Open Graph images, the FAQ, /api/config, server-rendered copy (including the jury-capacity lines on the moderation and transparency pages), and practice juries or challenges on fixtures.",
+        "While the verifier's own SAMPLE_EMPLOYERS is not exactly 'on', /keys and /stats omit the fictional employers' sandbox keys, and /start, /issue and /issue-juror refuse them as unknown keys.",
+        "Production sets both vars to 'off' (wrangler.jsonc, issuer.wrangler.jsonc); tools/prepare-local.mjs sets both to 'on' in the local env files, so local practice juries and the browser and integration suites keep working after a fresh prepare.",
+        "tools/purge-samples.mjs is a dry run by default and --local runs the same plan on the local databases; a remote --apply needs --bookmark=<id>; it removes the fictional employers and everything recorded about them from the public, intake and verifier databases; --all-intake also clears the pre-launch intake test records but keeps work-mailbox-verified contributions unless --include-real-contributions is given; it never touches a real employer's row, the migration tables, the append-only public ledgers or the R2 archives.",
+        "A release build ships no fictional employer's Open Graph image; the committed production registry (db/issuer-public-keys.json) holds no sandbox ('demo') key, so no release pins one; building or signing a release from a production registry that holds one is refused.",
+        "verify-deployment reports FAIL when the site lists a fictional employer or either host serves a sandbox key.",
+        "docs/operations.md describes the purge as the tool runs it (the verifier step, --all-intake keeping real contributions, --include-real-contributions)."
+      ],
+      "tests": [
+        "tests/community.test.ts: 'fictional employers are hidden everywhere while SAMPLE_EMPLOYERS is not on…', 'production configuration: no fictional data, publication and juries on…', 'the sample purge removes every fictional employer and everything about them, and nothing else', 'a purge needs an explicit target, and a remote purge a restore point', 'the sample purge also removes the fictional employers' sandbox keys and their challenges from the verifier database, and nothing real', 'a release build leaves the fictional employers' Open Graph images out of the bundle; a local build keeps them'.",
+        "tests/protocol.test.ts: 'the fictional employers' sandbox keys are listed and sign only while SAMPLE_EMPLOYERS is exactly on; production sets it off', 'provisioning leaves sample employers out when SAMPLE_EMPLOYERS is not on (or with --no-samples)…'; tests/web.test.ts 'with sample employers off, nothing fictional is listed or offered…'.",
+        "Still to add: a verify-deployment test for a served sandbox key, a build or transparency test that refuses a production registry holding a sandbox key, a prepare-local test that both workers' local vars set SAMPLE_EMPLOYERS=on, and a pages test that jury capacity ignores fictional employers while the switch is off."
+      ]
+    },
+    {
+      "id": "W-081",
+      "phase": "Phase 16 - Public launch",
+      "title": "Real-employer publication in batches of 5 with aggregates at 25",
+      "depends_on": [
+        "W-015",
+        "W-053"
+      ],
+      "scope": "Owner decision of September 23, 2026: real-employer publication and juries are switched on. Written accounts publish per employer and verification type in batches of TESTIMONY_BATCH_MIN (5 in production) after screening and the random delay; questionnaire percentages and answer bands keep MIN_COHORT_N (25); a real-employer jury forms only when enough jurors can serve, and otherwise the case stays honestly pending. Every page that states these rules says exactly this.",
+      "files": [
+        "wrangler.jsonc",
+        "worker/src/flags.ts",
+        "worker/src/submissions.ts",
+        "worker/src/moderation.ts",
+        "shared/policy.ts",
+        "worker/src/legal.ts",
+        "worker/src/pages.ts",
+        "web/submit.tsx"
+      ],
+      "acceptance": [
+        "Production sets REAL_PUBLICATION_ENABLED 'true', JURY_ENABLED 'true', TESTIMONY_BATCH_MIN '5' and MIN_COHORT_N '25' in wrangler.jsonc, and the published moderation policy carries the batch minimum of 5.",
+        "Approved written accounts publish only in batches of at least TESTIMONY_BATCH_MIN for the same employer and verification type, after screening and the random 12 to 72 hour delay; a batch that would fall below the minimum is reverted, and an unbatched approved account is erased after 180 days.",
+        "Questionnaire percentages and answer bands are published only for groups and answers of at least MIN_COHORT_N (25), and account counts from 1 to 4 are never stated.",
+        "A real-employer jury opens only when juror keys of enough employers are live to reach a decision under the seat limits; otherwise the case stays held, and /api/config, /moderation and /transparency say whether a jury can form now.",
+        "The privacy policy, terms, moderation and transparency pages, the contribution receipt and an empty employer record say: written accounts in batches of at least 5 per employer after screening and a random delay; survey figures need 25.",
+        "A contribution accepted under legal version 1.1.0 (submitted before LEGAL_EFFECTIVE, 2026-09-23), which was promised a batch of at least 25, is never published in a smaller batch unless counsel decides otherwise, and the publication code enforces this rather than a manual query before the deploy."
+      ],
+      "tests": [
+        "tests/community.test.ts: 'written accounts publish in batches of 5 per employer and verification type; questionnaire aggregates keep their minimum of 25', 'production configuration: no fictional data, publication and juries on…'.",
+        "tests/publication.test.ts: 'a batch that would drop below 5 after claims is reverted, not partially published', 'held cases expire after 30 days and unbatched approved cases after 180…', 'a group whose published count falls below 25 stays suppressed even after 5 changes'.",
+        "tests/safety.test.ts: 'legal: retention, batch and jury numbers are rendered from the moderation policy', 'launch: the production review copy describes publication, juries, listings and proof of work as production runs them'.",
+        "Still to add: a publication test that a contribution created before LEGAL_EFFECTIVE waits for a batch of 25."
+      ]
+    },
+    {
+      "id": "W-082",
+      "phase": "Phase 16 - Public launch",
+      "title": "Proof-of-work gate on verification and listing",
+      "depends_on": [
+        "W-014"
+      ],
+      "scope": "Owner decision of September 23, 2026: mailbox verification stays on, and the requests anyone can send without an account (a mailbox code, a juror token batch, a new employer listing) need an in-browser proof of work, so automated floods cost compute.",
+      "files": [
+        "shared/pow.ts",
+        "web/pow-client.ts",
+        "worker/issuer.ts",
+        "worker/src/community.ts",
+        "worker/src/app.ts",
+        "issuer.wrangler.jsonc"
+      ],
+      "acceptance": [
+        "shared/pow.ts is hashcash over SHA-256: the stamp's prefix binds the requesting origin, the action, the issuer key id (empty for a listing), a digest of what the request concerns (the normalized email address for /start, the exact blinded messages for /issue-juror, the domain for /api/employers) and the UTC minute; a server accepts a stamp within 2 minutes of its own clock, checks it with one hash, and refuses a stamp made for any other request.",
+        "The verifier requires a stamp on /start and /issue-juror, and the main worker on POST /api/employers, before reading a key, sending an email or looking anything up; no spent-stamp table is kept and nothing about the person is stored.",
+        "The browser computes the stamp in a Web Worker served from the site's own origin (/pow-worker.js, allowed by the CSP), refuses a difficulty above 24 bits before starting, and can be stopped with nothing sent.",
+        "The default difficulty is 20 bits (POW_BITS), tuned so a laptop takes about 0.5 to 1.5 s; the measured solve time is recorded with the constant, and the time the page states matches it."
+      ],
+      "tests": [
+        "tests/pow.test.ts (SHA-256 search, binding to origin, action, key and subject, the time window, difficulty and clamping, malformed stamps, the self-contained Web Worker script, abort).",
+        "tests/protocol.test.ts '/start and /issue-juror require a proof of work bound to this origin, route, key and request, checked before any key is read or email sent'; tests/community.test.ts 'a listing needs a proof of work bound to this origin, the listing action and the exact domain…'.",
+        "tests/web.test.ts: 'a proof-of-work stamp computed without a worker verifies on the server’s check…', 'the proof of work refuses a difficulty far above the default before any work, and stops, sending nothing, when asked'.",
+        "A recorded in-browser timing of the default difficulty on a laptop."
+      ]
+    },
+    {
+      "id": "W-083",
+      "phase": "Phase 16 - Public launch",
+      "title": "Employer onboarding by work-email domain",
+      "depends_on": [
+        "W-014",
+        "W-042",
+        "W-072",
+        "W-082"
+      ],
+      "scope": "Owner decision of September 23, 2026: anyone can add a missing employer by name and work-email domain. Listing is separate from verifying and reveals nothing about contributors. The verifier holds the domain registry and creates community contribution and juror keys on demand; the publisher copies their public halves; the browser uses a community key only when both services publish it identically. Abuse controls bound what a listing can do, and a wrong listing can be corrected.",
+      "files": [
+        "shared/domains.ts",
+        "worker/src/community.ts",
+        "worker/src/app.ts",
+        "worker/issuer.ts",
+        "worker/src/moderation.ts",
+        "worker/src/pages.ts",
+        "shared/proof.ts",
+        "db/migrations/0010_community_employers.sql",
+        "db/migrations/0011_listing_corrections.sql",
+        "db/verifier-migrations/0005_domain_registry_and_community_keys.sql",
+        "db/verifier-migrations/0006_community_email_budget_and_withdrawals.sql",
+        "web/add-employer.tsx",
+        "web/listing.ts",
+        "web/community-keys.ts",
+        "tools/verify-deployment.mjs",
+        "tools/provision-issuer.mjs"
+      ],
+      "acceptance": [
+        "POST /api/employers takes a name of at most 80 characters, refused for identifying details, invisible characters, mixed Latin, Cyrillic and Greek letters, a host name other than its own domain, and abusive or accusatory words (word lists and Jev), and a work-email domain that is a valid host name, not free-mail, disposable, reserved or a bare public suffix (shared/domains.ts), not abusive, and has MX records looked up by DNS over HTTPS at https://cloudflare-dns.com/dns-query from the main worker; a resolver failure lists nothing.",
+        "Each attempt needs a proof-of-work stamp bound to the domain (W-082) and is limited per client and per wider network (IPv4 /24, IPv6 /48) per UTC day, with a site-wide daily cap; a request refused by the free checks spends no allowance and stores nothing.",
+        "A listing is shown as 'Name (domain)' with an 'Added by the community' label everywhere it is named; the same domain, a subdomain or a parent of a listed or curated domain cannot be listed; a domain named after a listed employer or alias can be listed only under that employer; a name that means a listed employer with a domain is refused; a bare curated name always resolves to the curated employer.",
+        "A domain attaches to an existing curated listing that has none only when Jev rates 'Is <domain> the corporate email domain of <employer>?' at least 0.85 AND the domain's registrable label exactly equals a significant word of the name, the whole name or a curated alias; otherwise it becomes a separate community listing. A community domain on a curated listing is labeled as community-supplied wherever it is shown.",
+        "The main worker registers the employer with the verifier over the VERIFIER service binding, authenticated with INTERNAL_TOKEN (a secret on both workers, never a var, never served or logged); the verifier creates contribution and juror keys on demand (RSA-PSS 2048 through the blind-RSA suite, sealed under ISSUER_MASTER_KEY, COMMUNITY_KEY_LIMITS caps, a daily verification-email budget) and serves them at /keys with source 'community'; the publisher copies them into trusted_issuers with INSERT OR IGNORE; a refused secret leaves no pending listing, closes listing in /api/config and fails verify-deployment.",
+        "The browser uses a community key only when the publisher's and the verifier's copies agree exactly, labels it as added after this release, never lets it replace a curated or release-pinned key, and checks keys only with the verifier its release names; verify-deployment reports FAIL when the site's and the verifier's community keys differ.",
+        "Employer records and work-mailbox verified accounts show the employer's verification domains.",
+        "A wrong listing can be corrected by a person reviewing a request: the operator route detaches a community domain or withdraws or renames a community listing only after the verifier confirms; credentials made with a detached key stop being accepted at once; the public correction log records kind, reason, quarter and a digest; no account is changed.",
+        "Community juror keys cannot decide a jury: the tokens of all community-listed employers share one seat group per case, capped at 1 seat, and community employers do not count toward whether a jury can form.",
+        "Every refusal code POST /api/employers can return has plain wording in the add-employer form."
+      ],
+      "tests": [
+        "tests/community.test.ts (domain rules, the attach rule's deterministic half, name rules, MX lookup, listing gate, proof of work, Jev checks, registration and key copy, duplicates and subdomains, attach at 0.85, pending registration, daily limits, network limits, exact key copies, verification domains on records and accounts, squatting and impersonation refusals, the shared-secret probe, corrections and takedown mirroring, the real-verifier round trip).",
+        "tests/protocol.test.ts: 'registering a domain creates the employer's contribution and juror keys on demand…', 'registration is idempotent and refuses conflicts…', 'a community key signs only for its employer's still-registered, still-accepted domain…', 'an employer anyone listed has a daily email budget…', 'registration refuses a parent domain…', 'DELETE /internal/employers takes a community registration down…'.",
+        "tests/web.test.ts: 'community listings show their domain beside the name and are labeled…', 'adding an employer is checked on the device with the server’s domain rules…', 'a community key is used only when the publisher and the verifier publish it identically…', 'a community listing that shares a curated employer’s name never stands in for it…', 'a community key never replaces a release-pinned key…'.",
+        "Still to add: a tests/moderation.test.ts case where tokens from several community-listed employers fill at most 1 seat of a case and do not make a jury formable."
+      ]
+    },
+    {
+      "id": "W-084",
+      "phase": "Phase 16 - Public launch",
+      "title": "Daily Jev budgets of about 100,000 calls",
+      "depends_on": [
+        "W-006"
+      ],
+      "scope": "Owner decision of September 23, 2026: hosted Jev calls total about 100,000 a UTC day, split by purpose so no purpose can starve another: search 45,000, live 45,000, screen 5,000, analysis 4,000, relevance 1,000.",
+      "files": [
+        "worker/inference-core.ts",
+        "worker/src/app.ts",
+        "worker/src/legal.ts",
+        "docs/evaluation.md"
+      ],
+      "acceptance": [
+        "BUDGETS in worker/inference-core.ts is {search:45000, live:45000, screen:5000, analysis:4000, relevance:1000}, 100,000 calls a UTC day, each charged atomically; relevance equals the published daily cap on hosted relevance checks.",
+        "Reserves keep their earlier proportions: optional search work (ranking, retrieval, checks of new listings) may bring the search counter only to 30,000, and anonymous draft checks the screening counter only to 2,500.",
+        "Live understanding spends only the live budget and pauses quietly when it is spent; explicit searches spend only the search budget; a spent budget never reaches the provider, and queued analysis waits for budget instead of being dropped.",
+        "Every document that states the budgets (the privacy policy, docs/evaluation.md) gives the numbers the code applies."
+      ],
+      "tests": [
+        "tests/community.test.ts 'daily Jev budgets total about 100,000 calls, and reserves keep their earlier proportions'.",
+        "tests/jev.test.ts: 'search traffic cannot exhaust the screening budget', 'queued analysis under a spent budget never calls the provider and is not dropped…', '/relevance has its own daily budget…', 'Live understanding is charged to its own daily budget…', 'RT-ABUSE-02: anonymous draft checks spend only their share of the screening budget…'.",
+        "tests/api.test.ts: 'live understanding has its own budget…', 'live calls are marked live all the way to the inference worker…'; tests/safety.test.ts 'legal: numbers and behavior fixed in code outside the policy still match their source'."
+      ]
+    }
+  ]
+}

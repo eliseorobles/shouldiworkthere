@@ -1,0 +1,17 @@
+name: Feature proposal
+description: Propose an improvement consistent with the product principles.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: Proposed approach
+      description: Include privacy implications and alternatives considered. Use synthetic examples only.
+    validations:
+      required: true

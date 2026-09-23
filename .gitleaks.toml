@@ -1,0 +1,51 @@
+title = "Should I Work There public-source scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "private-jwk"
+description = "Serialized private JWK material (public RSA moduli and Ed25519 public keys are expected)"
+regex = '''"(?:d|p|q|dp|dq|qi)"\s*:\s*"([A-Za-z0-9_-]{40,})"'''
+secretGroup = 1
+
+[[rules]]
+id = "siwt-secret-assignment"
+description = "Hardcoded SIWT operational secrets"
+regex = '''(?:ISSUER_MASTER_KEY|MAILBOX_PEPPER|INTERNAL_TOKEN|RATE_LIMIT_SECRET|ADMIN_TOKEN|INFERENCE_CALLER_SECRET|TYPESAFE_API_KEY)["']?\s*[:=]\s*["']?([A-Za-z0-9_+/=-]{32,})'''
+secretGroup = 1
+entropy = 3.5
+
+# Reviewed false positives, constrained to the exact field shape or fixture value.
+# No whole source/test/release directory is excluded from scanning.
+[[allowlists]]
+description = "Signed manifests contain public SHA-256 digests, not API keys"
+targetRules = ["generic-api-key"]
+condition = "AND"
+paths = ['''^docs/releases/[0-9-]+[a-f0-9]+\.json$''']
+regexTarget = "line"
+regexes = ['''^\s*"(?:db/[a-zA-Z0-9_/-]+\.sql|worker/src/credentials\.ts|issuerKeysDigest)"\s*:\s*"[A-Za-z0-9_-]{43}"\s*,?\s*$''']
+
+[[allowlists]]
+description = "Explicit synthetic rate-limit secrets in three test files"
+targetRules = ["generic-api-key"]
+condition = "AND"
+paths = ['''^tests/(?:api|community|moderation)\.test\.ts$''']
+regexTarget = "secret"
+regexes = ['''^(?:rate|test)-secret-0123456789$''']
+
+[[allowlists]]
+description = "A source-code comparison misread as a secret by the generic rule"
+targetRules = ["generic-api-key"]
+condition = "AND"
+paths = ['''^worker/src/(?:app|community)\.ts$''']
+regexTarget = "secret"
+regexes = ['''^env\.ENVIRONMENT={2,3}$''']
+
+[[allowlists]]
+description = "Presence-only placeholder for rendering legal review copies"
+targetRules = ["siwt-secret-assignment"]
+condition = "AND"
+paths = ['''^worker/src/legal\.ts$''']
+regexTarget = "secret"
+regexes = ['''^required-in-production-on-both-workers$''']

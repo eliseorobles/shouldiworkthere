@@ -1,0 +1,16 @@
+{
+ "name":"shouldiworkthere-verifier",
+ "main":"worker/issuer.ts",
+ "compatibility_date":"2026-09-21",
+ "compatibility_flags":["nodejs_compat"],
+ "account_id":"4926f383e3df2fdc65ede2ae7605176e",
+ "observability":{"enabled":false},
+ "vars":{"ALLOWED_ORIGIN":"https://shouldiworkthere.com","EMAIL_FROM":"verify@verify-mail.shouldiworkthere.com","EMAIL_ENABLED":"true","ENVIRONMENT":"production","POW_BITS":"20","SAMPLE_EMPLOYERS":"off"},
+ "secrets":{"required":["ISSUER_MASTER_KEY","MAILBOX_PEPPER","INTERNAL_TOKEN"]},
+ "d1_databases":[{"binding":"VERIFIER","database_name":"shouldiworkthere-verifier","database_id":"eb141a6d-df85-4b92-88ac-d7bca1f95c78","migrations_dir":"db/verifier-migrations"}],
+ "send_email":[{"name":"EMAIL"}],
+ "ratelimits":[{"name":"ABUSE","namespace_id":"2002","simple":{"limit":12,"period":60}},{"name":"JUROR_LIMIT","namespace_id":"2007","simple":{"limit":2,"period":60}},{"name":"REGISTER_LIMIT","namespace_id":"2011","simple":{"limit":20,"period":60}}],
+ "triggers":{"crons":["*/15 * * * *"]},
+ "routes":[{"pattern":"verify.shouldiworkthere.com","custom_domain":true}],
+ "dev":{"port":8790}
+}

@@ -1,0 +1,16 @@
+{
+ "name":"shouldiworkthere-inference",
+ "main":"worker/inference.ts",
+ "compatibility_date":"2026-09-21",
+ "compatibility_flags":["nodejs_compat"],
+ "account_id":"4926f383e3df2fdc65ede2ae7605176e",
+ "workers_dev":false,
+ "preview_urls":false,
+ "observability":{"enabled":false},
+ "vars":{"JEV_PROVIDER":"cloudflare","JEV_FALLBACK":"typesafe","JEV_GATEWAY_ID":"default","SELF_HARM_SCREENING":"true"},
+ "ai":{"binding":"AI"},
+ "d1_databases":[{"binding":"DB","database_name":"shouldiworkthere-public","database_id":"76309153-1591-4c2e-a070-3988614744ab"}],
+ "queues":{"consumers":[{"queue":"shouldiworkthere-evidence-analysis","max_batch_size":1,"max_retries":3,"dead_letter_queue":"shouldiworkthere-evidence-dead-letter"}]},
+ "triggers":{"crons":["23 * * * *"]},
+ "dev":{"port":8789}
+}

@@ -1,0 +1,340 @@
+{
+ "manifest": {
+  "format": "siwt-release-v1",
+  "buildId": "c50aef0b3a",
+  "releasedOn": "2026-09-23",
+  "client": {
+   "served": {
+    "/app.js": {
+     "sha256": "mPqq4gk78QySFnqdXZMTk4AFibG54KG7QtzreNLaZUw",
+     "bytes": 742990
+    },
+    "/app.css": {
+     "sha256": "7TNxD3JFLl6bA01fAHnBmeJGZ-meZ-lTd-5zC2qxf5Q",
+     "bytes": 170868
+    }
+   },
+   "js": "mPqq4gk78QySFnqdXZMTk4AFibG54KG7QtzreNLaZUw",
+   "css": "41ijLzS5kDecZxbuNaFgNR3loLuC3T-Lv54h5gfK_Xs",
+   "fonts": "Phyvc8lHW5lQLeRbX4-_DaHO_ZNb1zi14GnL2W6T3wY"
+  },
+  "sources": {
+   "algorithm": "sha256-base64url",
+   "files": {
+    "bun.lock": "gdn1tSZB4KcxXDSc5-BVwptfCl5gWewcFstOOfU8bLQ",
+    "db/intake-migrations/0001_publication_privacy.sql": "5_WWAFfbeJUaP7nMyzDz3ybJ8ppWdIofe2K8HGnBtjU",
+    "db/intake-migrations/0002_question_release_state.sql": "mJqRMyVMiWPEDZa9NGN3ayjrXFCSbCnjQik5sL-IM6U",
+    "db/intake-migrations/0003_moderation.sql": "ngivoljUj8_1CFwViZ40YvXyciic1jU_6eq-FjOpRNs",
+    "db/intake-migrations/0004_consent_retention_budget.sql": "Dzczs4cvsEwpDjiTIhgBduuLhOfmQjbMo9uZRVGIE6Y",
+    "db/intake-migrations/0005_finality_queue_snapshots.sql": "pDdkixPY4u4CIbGOnDSdz6bSTaJR-nAdBF_vTPyTL7A",
+    "db/intake.sql": "E4v5xxLdOr3fVEg8dSmrur8GyOmjNL753M4KITulQrQ",
+    "db/issuer-public-keys.sql": "i1GjEgQT0b-mbYRIZVY8G-SQ54wurmhh82X_KKP3CeE",
+    "db/migrations/0001_reconciliation.sql": "q0JHPqtL1XcU3O1BM7H9LG3Pd1WXvAQCuj5LI3MIoFg",
+    "db/migrations/0002_privacy_publication.sql": "qVu7Rbe7IYUQ1qslAmQhkV8msERzOTlP_GHtIxiHtSY",
+    "db/migrations/0003_evidence_faq.sql": "ey-zXMmh65mZdAuMwqEMZgmdSO5Yje0pSFU14EvR9wQ",
+    "db/migrations/0004_legacy_scrub.sql": "YT_zfw5x9CkjWjyMlbZtvND6ptZ7vkjYuxIYD11GlgQ",
+    "db/migrations/0005_moderation_public.sql": "jzIxnaHZNsm8xjKwbSXCnlFiKDzNtTCTJ0_aYXDpSfA",
+    "db/migrations/0006_juror_keys.sql": "nHjnxzGOLOHr779oE8kICl7ImH0XXHqysppQfdRXIoY",
+    "db/migrations/0007_vector_index_and_interest_days.sql": "DKwTjtlRt1TrrfdD00LoxyUgmIiBVw2L5f6F-j4T8yI",
+    "db/migrations/0009_directory.sql": "GW_l0sqFFjeWzVyWkrfW_zdSRHl8eGXswT1q_lpcmCc",
+    "db/schema-verify.sql": "N2bS2Nk6ofp7F-V6M_vxJUzpaToiY17-tDhRnm-wSio",
+    "db/schema.sql": "FwkSlXvdjScSCePL6qQQeBLOmlw5ugdUKtPhRsNPuJE",
+    "db/seed.sql": "yz9kd9XgVUqXRMqz8Mc8Y7x0G2mE5JgNPrhFvN4Q-FY",
+    "db/verifier-migrations/0001_sealed_keys_and_quota.sql": "_oqIOfLEOLuSDpczSGxu-rjA2W-Lz2Zxf3JvV_wOmGw",
+    "db/verifier-migrations/0002_juror_tokens_and_issuance_controls.sql": "z64BzNRwXDxqw9mBQEPVF5gdD8LfZJzoE6xgX13sv7s",
+    "db/verifier-migrations/0003_juror_quota_three.sql": "ti5QHdvcmfYsZkpBYH8i9hJZz2_xbOqLY1OsHLFAWIk",
+    "db/verifier-migrations/0004_drop_legacy_tables.sql": "TjfYdi3vdm71sLZatDerAwRpP4tKzuoclk3wHcVAXsk",
+    "db/verifier-v2.sql": "j79zHDTuRmq2gxFGTRaBgk0QG6bYGP2njMMq47PQKDs",
+    "inference.wrangler.jsonc": "UJUXdmpCtpMgK2d6Vz_3HvKjLMlMq0BQSj372JgYcOc",
+    "issuer.wrangler.jsonc": "stldUhCurrCiS2nGM8PwDJldPWsM6LFiIIV576UFRok",
+    "package.json": "J1LIY3Y7Zl5na_UFohN-Q2F5G9d95L6LR8oP2b4NPmI",
+    "shared/brand.ts": "uhspqdmNa-SM7xu4Ww-YDpVdoxYBKEJ-VE95wxvFymE",
+    "shared/faq.ts": "ZjWxp-p6lYHnLNBcQEESiNC0pbs5hldHVVNVAgiwvcI",
+    "shared/policy.ts": "IrpTI2P17KMzJ1eFVzsOa02L7eI1rUyVTVohq7Wjl6s",
+    "shared/privacy.ts": "o6vXJT73jx4kpxLz5cwCMipWrVTwBEB9zNctigh7MJE",
+    "shared/proof.ts": "Uobr6MW5_eEDsaE17lxFWR_GSSBf_8fVK85VFDIUpK4",
+    "shared/safety.ts": "39d9JYkXAPA_Z4XHa_gikfN3BhpvGHCZ0V5CE15Bz1k",
+    "shared/survey.ts": "icr0AqmBi_y-vryVI9BAIo9LXf98tBiyBK8YJKVTonE",
+    "shared/trustees.ts": "JyQmLx3fQUcORB-bjB-eVnhKF3Z9uYP1BroxNhLjU5I",
+    "worker/inference-core.ts": "ugJLhDKn2VCfOOwuq2j1yY9N6vt2lLxF96oKRS-Rysw",
+    "worker/inference.ts": "EJHahlkX1FFpNw3n60_OBs_WJnd4DLarTpEWv5J1S_w",
+    "worker/issuer.ts": "uh14tC2yUGe0U4KoVq-x7ld20LFsD_XqAhMPQXJV7rw",
+    "worker/src/ai.ts": "Q8ODBAdjuzpi6EUvyHlkZ0Btn0CAHmdux0Dlz1xUyT0",
+    "worker/src/app.ts": "U6ybJfMEAiBqfdrNN8ByABS5vDcPAlJNgL7wpGkq88w",
+    "worker/src/credentials.ts": "RtcbIqnVoOK2nCb7U5eoUom5Z6aNRYjjDpP4e8GeG7U",
+    "worker/src/evidence.ts": "Z1QFz9G6GWhBahcOsHgVdLKWdWARivvnfp3b7JpqXgI",
+    "worker/src/index.ts": "obAdh9m-HEyl6S9ZTqm57WJGWtPL7LMJWr6L91F35WE",
+    "worker/src/interpretation.ts": "GAIfwVN_2uO4S4lEqnNb-qQCYsRYElYowzqYJucIzlI",
+    "worker/src/jev.ts": "NQOjYqOlRMw7K8cU5vE9uQ__K4BZyGrobOp-zmClsmc",
+    "worker/src/ledger.ts": "9jYyf2oMtASgffGZMTvh1mJ-rZoxdtPuexLTKee50pc",
+    "worker/src/legal.ts": "jYUjxkfvRJ-89q3kOC23DDU40rTEkYLtsDOkYdIEWlI",
+    "worker/src/moderation.ts": "BYgNfCK8WXbnucdG1SVyezeUdWGwiUUXuleeSNKw3F0",
+    "worker/src/network.ts": "XJ36xKCXkVYBwkLeTvO6FVo1ZFZsa2F4vl2pygabwWc",
+    "worker/src/og.ts": "mffHDDe7ngAtrKxPtd00xnIfUxvD3O-9c4TdKKpEPIE",
+    "worker/src/pages.ts": "qRyjOcxPk1BbBfdZxd_zqLincNUKAQI4rvBfQndSCSI",
+    "worker/src/release.ts": "hW321sBYjTkqJTta7LFmL3oU1b1KiZehS2cIpZdaX6w",
+    "worker/src/submissions.ts": "rBfThJEPg_i5b9Bb82HHEQ93jbO9WyNGH5lP9XymlZ0",
+    "worker/src/types.ts": "GeW31gUDI2B7Ng5XZoCe5k1eG47tHEBq42MCbbgj-gY",
+    "wrangler.jsonc": "T9oQ71ihv2r7RvBOE4kag9n6_h7bd4yE4YQIQY6G8i4"
+   },
+   "digest": "ECxHpKNB7Zv-JRA40P96AhprtRJijQMxK1-ocTp7GJw"
+  },
+  "issuerKeys": [
+   {
+    "id": "amazon:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "O2FJx3hEGyLctEa0wHPgqYG7IXO_yOG5PYS1I0cSbpU"
+   },
+   {
+    "id": "amazon:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "gq-E-Hp2fz8Qy6ue_asFPfX3NvCECUfAwNeOQq1Xi_s"
+   },
+   {
+    "id": "amazon:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "ogfwO8LOJV9L-W8mndXUlIZM_HuWsnVxBsZa-cbDCko"
+   },
+   {
+    "id": "amazon:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "aW3jOgmU1rkrfhBXZu3M9w-VruY8WjMWTTdUeZUHmL0"
+   },
+   {
+    "id": "anthropic:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "I_IP5TWyvIddFCvhyxGhrNA-9LeBxuXMn9cqDJwTrn4"
+   },
+   {
+    "id": "anthropic:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "Sl7lhERz31Pkk2dmsocW70EmmeaEX7tUOuzXHjC7KGI"
+   },
+   {
+    "id": "anthropic:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "nXUxkfOMaLPn5AQ8p5JFtEgY8wOsG_IhykLCX6ZTyNo"
+   },
+   {
+    "id": "anthropic:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "C-UpQ-_EDTvK02iXVO1epyHOzz9SV2aArE-KDhUVq3I"
+   },
+   {
+    "id": "cloudflare:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "HbpyXWkF06D6NZN_Ne2ajq4u3GlXtEeBejftcqFKYWw"
+   },
+   {
+    "id": "cloudflare:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "irMd-Jm4_i3Vsq6g81ihwWHdr4CIJBC6ZtCCXT5nGM0"
+   },
+   {
+    "id": "cloudflare:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "i1tg_0gfFM8TaZFMvbm8hAcatKGxtd9fqq2_Sy3Dy3g"
+   },
+   {
+    "id": "cloudflare:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "bp2VuiCyLfpBmceKqn0feDfkaNc8FxiHjuCX6S1E3C4"
+   },
+   {
+    "id": "google:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "rSRyeLWXUzUTgfl0k4xbX4CIgtrr5xQGsaWiIiZJDmc"
+   },
+   {
+    "id": "google:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "c27apGY-Augr6lCEBpXZdYiRkuMCxBtvSCgH6tE0qrI"
+   },
+   {
+    "id": "google:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "d6K_sPw6-4JLtDuVGBC9i9JqdfqojOYjiTPH0EEULcA"
+   },
+   {
+    "id": "google:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "H7Md0DqhqWPQkQcjsPxSaVkUZXjiacnDSPdQF-ucWNU"
+   },
+   {
+    "id": "helios-semiconductor:2026-Q3:demo",
+    "purpose": "contribution",
+    "fingerprint": "t1zvC9gMvFvmQBbIoMppt7VAiLbBu4bBg7NSVsYllWs"
+   },
+   {
+    "id": "helios-semiconductor:2026-Q3:juror:sandbox",
+    "purpose": "juror",
+    "fingerprint": "NwQV6CpbYZd-kh52k0il8H7zNX8hGhsSTgHQVLbM-wk"
+   },
+   {
+    "id": "helios-semiconductor:2026-Q4:demo",
+    "purpose": "contribution",
+    "fingerprint": "TlFiyt4C722FQb6tGRM_pMB3_TBDHTS7VszLwktH4AI"
+   },
+   {
+    "id": "helios-semiconductor:2026-Q4:juror:sandbox",
+    "purpose": "juror",
+    "fingerprint": "Fu1FTpf_Xovh4Ja9PPoJWF7gypcnghu6jYEu83oMjp0"
+   },
+   {
+    "id": "meridian-retail:2026-Q3:demo",
+    "purpose": "contribution",
+    "fingerprint": "twGOnWNoOpiYMtN_OCz0kbuD-abXsoRCnsSqN1EIsa4"
+   },
+   {
+    "id": "meridian-retail:2026-Q3:juror:sandbox",
+    "purpose": "juror",
+    "fingerprint": "P-HRZUx_qnaStZ52X1UPUJPIH9l4X-LuR45zov7cD34"
+   },
+   {
+    "id": "meridian-retail:2026-Q4:demo",
+    "purpose": "contribution",
+    "fingerprint": "ISWz2rwZa274Av0wX_jwgfsZBqhAyLkDM5pxvsW1vzw"
+   },
+   {
+    "id": "meridian-retail:2026-Q4:juror:sandbox",
+    "purpose": "juror",
+    "fingerprint": "j3F1hz2nCeLy9exoBxA52l2-C3fdxA-Sl_ZJVOB2p40"
+   },
+   {
+    "id": "meta:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "wNgNN5VkoB9sS06AgAEbIfH-M0ImPODuxPbmLJAs_as"
+   },
+   {
+    "id": "meta:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "zHUKKP3d2kEhHi0nAJOrzHdxwxkIxhhDtNBbFV1F2CY"
+   },
+   {
+    "id": "meta:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "0zFhewGhllar051psYBkbINj-misPr8nwgbG0IEh3N4"
+   },
+   {
+    "id": "meta:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "7xZ8SCRqJPXC_gj3z6uTJQr5uXdribwfbEh155HQnLc"
+   },
+   {
+    "id": "microsoft:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "C3mtBBkwE1iE8EJzeI-WLIszaqQNUncvtAGuyp5cyqw"
+   },
+   {
+    "id": "microsoft:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "kEI7YLwvrd4v_qSX-ChIhsrM3eCxZyTJuYbe9yAcgPQ"
+   },
+   {
+    "id": "microsoft:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "gNI5QmQG22CblvCUBgFBB3Yx5ZRTxtvJCuGkadvLWtk"
+   },
+   {
+    "id": "microsoft:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "HzrldTPbOZGcDULAW9JZ9q3G2VDfxMD7y2kjZnmFQDs"
+   },
+   {
+    "id": "northwind-labs:2026-Q3:demo",
+    "purpose": "contribution",
+    "fingerprint": "DXtDt8cPXqvtp5ZGBz2wCxmjGa6vDShiwwfahQ8GFdM"
+   },
+   {
+    "id": "northwind-labs:2026-Q3:juror:sandbox",
+    "purpose": "juror",
+    "fingerprint": "851epkkStSkLAjvqjVP2D4so42G7IxPunyhTBhznIeI"
+   },
+   {
+    "id": "northwind-labs:2026-Q4:demo",
+    "purpose": "contribution",
+    "fingerprint": "bNDJi1zrmPWaZ48Zy9NVWyZndfMM5iVnr-h_fhNCDh0"
+   },
+   {
+    "id": "northwind-labs:2026-Q4:juror:sandbox",
+    "purpose": "juror",
+    "fingerprint": "6wf0crSibND8Z9vwYGo4HwW47Tv4fd0a19iU-wMeexw"
+   },
+   {
+    "id": "nvidia:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "o03ZZCyUUD6KWU1jaj0is33cgWNSn1D_6ZznNw-JsPU"
+   },
+   {
+    "id": "nvidia:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "-f2LPZB-r-m5ZOP7nJg0fcZqvOznZCj4px3WsyS--fw"
+   },
+   {
+    "id": "nvidia:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "rk_2dIgSiUHd3Mg0I3WPIVY9KijtB1vu7wIH6IlnuCA"
+   },
+   {
+    "id": "nvidia:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "-4zIm0tkeepiqvETTf2mtF7qtcqwa5CtQoWncwTN0Ko"
+   },
+   {
+    "id": "openai:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "kprLR3UAKlevV_8rukpELK7TOzayXodj1xdQ5PPvY4I"
+   },
+   {
+    "id": "openai:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "vn-bVDbm2bea-Q3YwSEcwL-sRG0fVEq2Xnvw3kVD9uo"
+   },
+   {
+    "id": "openai:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "KPb9J8JZ95gavG0QaIbgU6CJFIMnEgamh2SIfaHJkrI"
+   },
+   {
+    "id": "openai:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "La7OVuQ1QFc2tSn8R8MWn7gyyYi44429wOAmgaXuWDc"
+   },
+   {
+    "id": "stripe:2026-Q3:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "Lh6GNkQGwjJu17GRCMIDQ3_r4EemRXebV3SbU4aNlL4"
+   },
+   {
+    "id": "stripe:2026-Q3:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "57r0TsadP359cY_OKmowlcR4MwrlWcQeoqDcffIhuCk"
+   },
+   {
+    "id": "stripe:2026-Q4:juror:mailbox",
+    "purpose": "juror",
+    "fingerprint": "NQZONMzRKURUX5dBjAFBQsVf06p8mU83f2qLECH5HOk"
+   },
+   {
+    "id": "stripe:2026-Q4:mailbox",
+    "purpose": "contribution",
+    "fingerprint": "9WN4kcuPZMw0HwrY179OUehCVjVRnKn3xOSoMkNrD2c"
+   }
+  ],
+  "issuerKeysDigest": "UOrpqNxRj7l-WcEIt43EbdnLo-HLJrjL2_m7ARV5lwY",
+  "policy": {
+   "version": "0.7.0",
+   "digest": "pcpaUH14gpFsWF-ZMVHqyXgzo7HDe44QSoftYDzijH0"
+  },
+  "legal": {
+   "version": "1.1.0",
+   "effective": "2026-09-22"
+  }
+ },
+ "signature": {
+  "alg": "Ed25519",
+  "keyId": "n5rAyc9Kux3UrEoneHSsst5YrtLBKUC9v3HDUCI68co",
+  "publicKey": "NnKIJf064-65N-c-tBg93GlolXvW2iB2IrrGN2aoq-0",
+  "value": "m9DodAAu4CkRln1ofUoFNXtSZpQSNvdrZn2rJH20uavLJ0wFFM4LzzzDvUqLRWlp7_jR-lMQxIczwaUTYYEOAA"
+ }
+}

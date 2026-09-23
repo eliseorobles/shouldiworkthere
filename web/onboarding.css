@@ -1,0 +1,49 @@
+/* Adding an employer, community listings and the proof-of-work note. Uses the design tokens from styles.css only. */
+.tag-community{color:var(--signal-strong);background:var(--signal-soft)}
+.tag-domain{font-family:var(--mono);font-weight:400}
+.employer-domain{font-size:var(--t-13);color:var(--slate);overflow-wrap:anywhere}
+.employer .tag-community{justify-self:start;margin-top:4px;white-space:normal}
+
+.add-employer{margin-top:28px;padding:28px;border-radius:var(--r-card);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);text-align:left;animation:rise .35s var(--ease) both}
+.add-employer>h2,.add-employer>h3{font-size:var(--t-21);letter-spacing:-.02em;margin-bottom:8px}
+.add-employer>h2:focus,.add-employer>h3:focus{outline:none}
+.add-employer>p{color:var(--slate);max-width:64ch}
+.add-employer-lede{margin-bottom:18px}
+.add-employer .note{margin-top:12px;max-width:64ch}
+.add-employer-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px}
+.add-employer-field{display:grid;gap:6px;align-content:start;min-width:0}
+.add-employer-field>span:first-child{font-weight:500;font-size:var(--t-15)}
+.add-employer-field input[aria-invalid=true]{border-color:var(--negative)}
+.add-employer-hint{font-size:var(--t-13);line-height:1.5;color:var(--slate)}
+.add-employer-field input[aria-invalid=true]+.add-employer-hint{color:var(--negative)}
+.add-employer-preview{margin-top:20px;padding:16px;border-radius:14px;background:var(--surface-2);border:1px dashed var(--line)}
+.add-employer-preview-label{font-size:var(--t-13);color:var(--slate);margin-bottom:10px}
+.employer.is-preview{max-width:420px;box-shadow:none;cursor:default}
+.employer.is-preview:hover{transform:none;box-shadow:none;border-color:var(--line)}
+.add-employer .primary-button[aria-disabled=true]{opacity:.7;cursor:progress}
+.add-employer .option-row{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.add-employer .error{margin:16px 0 0}
+.add-employer-namesake{margin-top:12px}
+.add-employer.is-done{background:radial-gradient(70% 90% at 50% 0%,color-mix(in srgb,var(--signal-soft) 45%,transparent),transparent 70%),var(--surface)}
+.add-employer.is-done>p+p{margin-top:8px}
+.add-employer-invite{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding:20px 24px;border-radius:var(--r-card);border:1px dashed var(--line);background:color-mix(in srgb,var(--surface) 70%,transparent)}
+.add-employer-invite p{color:var(--slate);max-width:60ch}
+.add-employer-invite strong{color:var(--ink);font-weight:500}
+.opens .add-employer{margin:28px auto 0;max-width:720px}
+.pending>.add-employer{margin-top:16px}
+
+/* The short calculation before a request: calm, never alarming, and still when reduced motion is requested. */
+.add-employer-working,.cx-pow{display:flex;align-items:flex-start;gap:10px;margin-top:14px;font-size:var(--t-13);line-height:1.6;color:var(--slate)}
+.pow-dot,.cx-pow-dot{flex-shrink:0;width:10px;height:10px;margin-top:5px;border-radius:50%;background:var(--signal);animation:pow-breathe 1.6s var(--ease) infinite}
+@keyframes pow-breathe{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.pow-dot,.cx-pow-dot{animation:none;opacity:.8}.add-employer{animation:none}}
+.cx-inline-link{display:inline;padding:0;min-height:0;font-size:inherit}
+.cx-pow-row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px 16px}
+.cx-pow-row .cx-pow{flex:1 1 280px}
+.cx-pow-row .cx-link{margin-top:10px}
+
+@media (max-width:700px){
+ .add-employer{padding:20px 16px}
+ .add-employer-fields{grid-template-columns:1fr}
+ .add-employer-invite{padding:16px}
+}
