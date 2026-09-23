@@ -21,7 +21,10 @@ Maintainer: [@eliseorobles](https://github.com/eliseorobles).
 Require CI, maintainer review where another maintainer is available, and resolved conversations on
 `main`. Disable force pushes and branch deletion. Enable secret scanning, push protection, private
 vulnerability reporting, dependency alerts/updates, and CodeQL. Keep Actions permissions minimal and
-pin third-party actions to complete commit SHAs. Dependabot proposes Action and Bun dependency updates.
+pin third-party actions to complete commit SHAs. Dependabot proposes Action updates. Its Bun updater
+does not yet support this project's v2 lockfile ([issue #8](https://github.com/eliseorobles/shouldiworkthere/issues/8));
+CI runs `bun audit --audit-level high` on every PR and weekly, and maintainers update packages with Bun
+and review refreshed license notices until upstream support is available.
 
 PR workflows use no production credentials or private release keys. Never execute a contributor's
 checkout in a privileged `pull_request_target` job. Review workflow changes as production-sensitive code.

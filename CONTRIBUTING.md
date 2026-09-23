@@ -42,8 +42,12 @@ npm run test:stack
 ```
 
 `test:stack` owns and stops its worker processes, refuses occupied ports, and runs integration
-checks followed by Playwright. The contribution/browser harnesses use synthetic data and local
-cryptographic keys. Hosted model evaluation (`npm run eval`) is an explicit, potentially billable
+checks followed by Playwright. It selects the test-only inference entrypoint in `tests/inference-fixture.ts`:
+the real screening route and policy validate deterministic provider answers for one exact synthetic
+paragraph. All other inference stays unavailable; this does not measure model quality. The fixture
+refuses non-development environments and is not used by normal `npm run dev` or production configs.
+The contribution/browser harnesses use synthetic data and local cryptographic keys.
+Hosted model evaluation (`npm run eval`) is an explicit, potentially billable
 maintainer task, not a pull-request requirement.
 
 ## Propose and submit changes
@@ -79,6 +83,8 @@ rejects private paths, symlinks, submodules, and unexpectedly large files. Gitle
 After changing dependencies, update `bun.lock` with Bun. For runtime dependency changes, run
 `node tools/licenses.mjs --write`, review the license texts and `licenses/index.json`, remove obsolete
 notice files, and include the updated publication manifest. Preserve upstream notices in releases.
+CI also runs `bun audit --audit-level high` and a weekly check. Dependabot updates Actions; its Bun
+lockfile-v2 parser limitation is tracked in [issue #8](https://github.com/eliseorobles/shouldiworkthere/issues/8).
 
 ## Maintenance and licensing
 

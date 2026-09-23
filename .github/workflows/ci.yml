@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '12 6 * * 1'
 
 permissions:
   contents: read
@@ -32,6 +34,7 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: npm run check:publication
       - run: npm run check:licenses
+      - run: bun audit --audit-level high
       - run: npm run fonts
       - run: npm run build:local
       - run: npm run typecheck

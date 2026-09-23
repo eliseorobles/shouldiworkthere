@@ -30,7 +30,8 @@ async function ready() {
 }
 for(const port of [8788,8789,8790,9231,9232,9233])await free(port);
 try {
-  await run(process.execPath,['tools/dev.mjs']);
+  console.log('Integration mode: deterministic provider answers for one exact synthetic paragraph; all other inference remains unavailable.');
+  await run(process.execPath,['tools/dev.mjs','--test-fixture']);
   await ready();
   await run(process.execPath,['tests/integration.mjs']);
   await run('bunx',['playwright','test']);

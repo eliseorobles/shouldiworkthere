@@ -30,6 +30,7 @@ import {existsSync,readFileSync} from 'node:fs';
 import {prepareProof,prepareJurorToken,authorMessage,digest,encode,quarter,publicAuthorSchema,keyPurpose,sameIssuerKey,JUROR_BATCH_MAX} from '../shared/proof.ts';
 import {policy} from '../shared/policy.ts';
 import {solvePow,powSubject} from '../shared/pow.ts';
+import {INTEGRATION_TESTIMONY} from './inference-fixture-data.ts';
 
 const SITE=(process.env.SITE??process.env.KERNEL_BASE??'http://localhost:8788').replace(/\/+$/,'');
 const VERIFIER=(process.env.VERIFIER??'http://localhost:8790').replace(/\/+$/,'');
@@ -41,7 +42,7 @@ const ROUTES=['metric_view','comparison','timeline','distribution','cohort','evi
 const IP=`203.0.113.${1+Math.floor(Math.random()*254)}`;
 // One random IPv6 /64 per run (documentation prefix 2001:db8::/32), for the per-network budget check.
 const NET6=`2001:db8:${Math.floor(Math.random()*0xffff).toString(16)}:${Math.floor(Math.random()*0xffff).toString(16)}`;
-const SAFE='My team discussed priorities openly each sprint. The workload was reasonable most weeks, and our direct manager consistently explained changes to the plan before they happened.';
+const SAFE=INTEGRATION_TESTIMONY;
 const EMAIL='jane.doe@example.com';
 
 let passed=0,failed=0,warned=0;

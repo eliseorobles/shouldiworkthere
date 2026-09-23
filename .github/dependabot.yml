@@ -1,14 +1,7 @@
 version: 2
 updates:
-  - package-ecosystem: bun
-    directory: /
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-    groups:
-      development:
-        dependency-type: development
-        update-types: [minor, patch]
+  # Bun 1.4 lockfile v2 is not supported by Dependabot's parser yet (issue #8).
+  # CI runs bun audit on the locked packages; update packages with Bun and review notices.
   - package-ecosystem: github-actions
     directory: /
     schedule:
