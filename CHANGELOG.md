@@ -11,6 +11,7 @@
   the production verifier pin from the verifier's deployment configuration.
 - Use rejection sampling for unbiased mailbox-code, shuffle, and analysis-delay integer draws.
 - Omit the remote-only Workers AI binding from generated local development configurations.
+- Move clarification-panel focus after React commits its DOM, fixing a keyboard-accessibility race.
 
 This is preview software. Hosted Jev calls require provider access; keyless local development uses
 degraded/manual controls. The protocol and moderation system have not received an independent audit.
