@@ -44,18 +44,23 @@ such wherever they appear.
 
 ## What it does
 
+
+
 - **Ask.** One input. Jev, a classification model, turns a question into typed decisions with probabilities (employer,
   comparison, group, period, event, topic, view, route). Deterministic code and SQL compute every number shown. Answers
   are fixed sentences filled in with released numbers; no model writes prose for the site. Uncertain readings appear as
   editable chips and confidence forks. Live understanding is on by default and starts off under Global Privacy Control.
+
 - **Evidence.** Published accounts are immutable. Jev records narrow descriptive readings of them (topics, six
   workplace dimensions, specificity), which are labeled as model readings and never counted as votes. Written accounts
   are released in batches of at least 5 after screening and a random 12–72-hour delay; questionnaire results are
   released only as aggregates of at least 25 answers.
+
 - **Proof.** A separate verifier checks control of a work mailbox and blind-signs a credential the browser prepared
   (RFC 9474 blind RSA). The publisher verifies the signature offline and never learns the mailbox; the verifier never
   sees the contribution. Requests for a code, for juror tokens and for a new listing carry a proof of work the browser
   computes in a Web Worker (`shared/pow.ts`); it makes floods costly and carries nothing about the person.
+
 - **Directory.** Curated employers, plus employers anyone adds by name and work-email domain (`worker/src/community.ts`).
   A community listing shows its domain beside the name and is labeled as added by the community. The domain must be a
   real host with mail records, not a free or disposable provider, not already listed and not named after another listed
@@ -68,12 +73,14 @@ such wherever they appear.
   creates the employer's keys on demand; they are served as community keys, which no release can pin, so the browser
   accepts one only when the site's and the verifier's copies agree exactly. A wrong listing is corrected by the operator
   on request through `POST /api/directory/correct` (`ADMIN_TOKEN`), and every correction is logged publicly.
+
 - **Constitutional moderation.** Jev answers narrow policy questions; a published, versioned policy
   (`shared/policy.ts`, served at `/moderation/current.json`) decides clear, repair or jury. There is no moderator
   dashboard and no delete button in the application. Until the trustee process exists, the operator acts on valid legal
   orders and other removals the law requires through direct database access, and the legal pages and `/moderation` say
   so. A report that an account breaks a content rule, and not the law, goes through the public challenge process, never
   through that access.
+
 
 ## Architecture
 
