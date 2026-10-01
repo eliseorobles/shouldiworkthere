@@ -44,23 +44,18 @@ such wherever they appear.
 
 ## What it does
 
-
-
 - **Ask.** One input. Jev, a classification model, turns a question into typed decisions with probabilities (employer,
   comparison, group, period, event, topic, view, route). Deterministic code and SQL compute every number shown. Answers
   are fixed sentences filled in with released numbers; no model writes prose for the site. Uncertain readings appear as
   editable chips and confidence forks. Live understanding is on by default and starts off under Global Privacy Control.
-
 - **Evidence.** Published accounts are immutable. Jev records narrow descriptive readings of them (topics, six
   workplace dimensions, specificity), which are labeled as model readings and never counted as votes. Written accounts
   are released in batches of at least 5 after screening and a random 12–72-hour delay; questionnaire results are
   released only as aggregates of at least 25 answers.
-
 - **Proof.** A separate verifier checks control of a work mailbox and blind-signs a credential the browser prepared
   (RFC 9474 blind RSA). The publisher verifies the signature offline and never learns the mailbox; the verifier never
   sees the contribution. Requests for a code, for juror tokens and for a new listing carry a proof of work the browser
   computes in a Web Worker (`shared/pow.ts`); it makes floods costly and carries nothing about the person.
-
 - **Directory.** Curated employers, plus employers anyone adds by name and work-email domain (`worker/src/community.ts`).
   A community listing shows its domain beside the name and is labeled as added by the community. The domain must be a
   real host with mail records, not a free or disposable provider, not already listed and not named after another listed
@@ -73,7 +68,6 @@ such wherever they appear.
   creates the employer's keys on demand; they are served as community keys, which no release can pin, so the browser
   accepts one only when the site's and the verifier's copies agree exactly. A wrong listing is corrected by the operator
   on request through `POST /api/directory/correct` (`ADMIN_TOKEN`), and every correction is logged publicly.
-
 - **Constitutional moderation.** Jev answers narrow policy questions; a published, versioned policy
   (`shared/policy.ts`, served at `/moderation/current.json`) decides clear, repair or jury. There is no moderator
   dashboard and no delete button in the application. Until the trustee process exists, the operator acts on valid legal
@@ -81,10 +75,48 @@ such wherever they appear.
   so. A report that an account breaks a content rule, and not the law, goes through the public challenge process, never
   through that access.
 
-
 ## Architecture
 
 Three Cloudflare Workers in one Cloudflare account, each with only its own secrets:
+
+```mermaid
+flowchart TB
+  browser["Browser<br/>Own mailbox, blinding state and finished credential"]
+
+  subgraph account["One Cloudflare account, one operator"]
+    subgraph verification["Mailbox verification boundary"]
+      verifier["Verifier / issuer<br/>Work mailbox in memory<br/>ISSUER_MASTER_KEY and MAILBOX_PEPPER"]
+      verifierDB[("VERIFIER D1<br/>Keyed mailbox hashes, code records, quotas and sealed issuer keys")]
+      verifier --- verifierDB
+    end
+
+    subgraph publication["Contribution and inference boundary"]
+      publisher["Main worker / publisher<br/>Verifies credentials offline using its own public-key copies<br/>Never receives the mailbox"]
+      intake[("INTAKE D1<br/>Unpublished contributions and capability hashes")]
+      publicDB[("DB / public D1<br/>Released evidence, public keys, model budgets and readings")]
+      inference["Inference / Jev<br/>No public endpoint<br/>Holds TYPESAFE_API_KEY and the Workers AI binding"]
+      publisher --- intake
+      publisher --- publicDB
+      inference --- publicDB
+      publisher -->|"INFERENCE service binding:<br/>questions, consented drafts and published text"| inference
+    end
+
+    publisher -.->|"VERIFIER service binding:<br/>directory registration/correction, link check and public keys only"| verifier
+  end
+
+  browser -->|"Direct browser-to-verifier:<br/>mailbox code flow and blinded messages"| verifier
+  verifier -->|"Blind signatures; never receives contributions"| browser
+  browser -->|"Unblinded credential and contribution"| publisher
+  publisher -->|"Released evidence and public keys"| browser
+```
+
+The boundaries separate services, databases and most secrets, not operators: the same operator can read all three
+D1 databases and change every worker. The verifier receives the work email address only for verification; it stores
+keyed mailbox hashes, while Cloudflare email delivery records also contain the recipient. Inference receives approved
+text after consent, questions and published text, never mailbox addresses or proof credentials. See
+[`docs/protocol-poewi.md`](docs/protocol-poewi.md) and [`docs/threat-model.md`](docs/threat-model.md) for the protocol and
+remaining correlation risks. The main-to-verifier link carries directory information and public keys, never a
+contribution or a credential redemption check.
 
 | Worker | Config | Entry | Public address | Databases | Holds |
 |---|---|---|---|---|---|
