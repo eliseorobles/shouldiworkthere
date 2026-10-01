@@ -1,4 +1,4 @@
-import {useCallback,useEffect,useMemo,useRef,useState} from 'react';
+import {useCallback,useEffect,useLayoutEffect,useMemo,useRef,useState} from 'react';
 import {flushSync} from 'react-dom';
 import {post,RequestError,isRateLimited,communitySupplied,ATTACHED_DOMAIN_LABEL,livePausedNote,LIVE_PAUSE_DEFAULT,RATE_LIMITED_CALM,fetchDirectory,isFictional,shownDirectory,publicationRules,accountsRule,homeExamples,isCommunity,displayName,employerLabel,withListing,domainOf,listingOpen,listingPowBits,COMMUNITY_LABEL,humanKey,TOPIC_LABELS,VIEW_LABELS,VIEW_SHORT,VIEW_DESCRIPTIONS,TIMEFRAME_LABELS,LAYER_LABELS,type CanvasResponse,type DirectoryCompany,type SiteConfig,type Overrides,type Metric,type EvidencePayload,type ViewId,type Interpretation} from './api.ts';
 import {stateUrl,parseState,stateOverrides,stateOf,hasTypedFilters,validSlug,missingEmployer,neutralized,unpublished,portable,forgetQuestion} from './share.ts';
@@ -102,6 +102,9 @@ export function EvidenceExperience({config}:{config:SiteConfig|null}) {
  // A question submitted before the directory arrives waits for it, so a bare employer name never reaches hosted Jev.
  const directoryLoad=useRef<Promise<DirectoryCompany[]>|null>(null),directoryRef=useRef<DirectoryCompany[]>([]);
  const input=useRef<HTMLTextAreaElement>(null),canvasHeading=useRef<HTMLHeadingElement>(null),clarifyHeading=useRef<HTMLHeadingElement>(null);
+ const focusPending=useRef(false);
+ // A frame can run before a concurrent state update commits. Focus only after the new panel's DOM and ref exist.
+ useLayoutEffect(()=>{if(pending&&focusPending.current){focusPending.current=false;clarifyHeading.current?.focus();}},[pending]);
  // The site's config, for filtering a directory that arrives before or after it: with sample employers off, none is listed.
  const configRef=useRef(config);configRef.current=config;
  displayRef.current=display;pinnedRef.current=pinned;directoryRef.current=directory;
@@ -144,6 +147,7 @@ export function EvidenceExperience({config}:{config:SiteConfig|null}) {
  const commit=useCallback((raw:CanvasResponse,how:How)=>{
   const result=neutralized(raw).response;
   if(result.keepCanvas) {
+   focusPending.current=how.focus==='clarify';
    const i=result.interpretation;
    // An unlisted employer is named in the asker's own words when that is all they typed; nothing else is guessed.
    setUnlistedFor(i.route==='unlisted'?{name:tidyName(i.unlistedEmployer?.name)??how.named??typedEmployerName(how.asked??how.q,directoryRef.current),chosen:!!how.chosen}:null);
@@ -151,7 +155,6 @@ export function EvidenceExperience({config}:{config:SiteConfig|null}) {
    // The question the panel leads with: a meaning fork first, whatever its tier (see heldQuestions).
    const ask=heldQuestions(offerable(result.interpretation.forks,!!result.evidence))[0];
    setAnnouncement(ask?`Clarification needed: ${questionOf(ask)}`:i.route==='unlisted'?'The employer you named isn’t in the directory yet.':result.notices[0]??'');
-   if(how.focus==='clarify')requestAnimationFrame(()=>clarifyHeading.current?.focus());
    return;
   }
   held.current=null;
