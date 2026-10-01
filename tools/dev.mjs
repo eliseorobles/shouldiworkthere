@@ -6,6 +6,7 @@
 import {spawn} from 'node:child_process';
 import {openSync,writeFileSync,existsSync,readFileSync,mkdirSync,realpathSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
+import {setTimeout as delay} from 'node:timers/promises';
 
 export const WORKERS=[
  {name:'inference',config:'inference.wrangler.jsonc',port:8789,inspector:9233,envFile:'.dev.vars.inference',owns:['TYPESAFE_API_KEY']},
@@ -45,6 +46,38 @@ export function envFileProblems(worker,text) {
  return [...foreign,...billable];
 }
 export const childEnv=environment=>Object.fromEntries(Object.entries(environment).filter(([key])=>!/TYPESAFE|ISSUER|MAILBOX_PEPPER|ADMIN_TOKEN|MASTER_KEY|RATE_LIMIT_SECRET|INTERNAL_TOKEN/.test(key)));
+
+/** Wait for each runtime to finish booting before another process opens the shared local SQLite state. */
+export async function waitForWorker(worker,child,{timeoutMs=120000,pollMs=250,requestTimeoutMs=2000,request=fetch}={}) {
+ const path=worker.name==='main'?'/api/config':worker.name==='verifier'?'/keys':'/';
+ const log=`.wrangler/local-${worker.name}.log`,abort=new AbortController(),deadline=Date.now()+timeoutMs;
+ const exited=()=>abort.abort(new Error(`${worker.name} exited before becoming ready (${child.exitCode??child.signalCode}). See ${log}.`));
+ const failed=error=>abort.abort(new Error(`Failed to start ${worker.name}: ${error.message}. See ${log}.`,{cause:error}));
+ child.once('exit',exited);child.once('error',failed);
+ try {
+  if(child.exitCode!==null||child.signalCode!==null)exited();
+  while(Date.now()<deadline) {
+   abort.signal.throwIfAborted();
+   try {
+    const signal=AbortSignal.any([abort.signal,AbortSignal.timeout(Math.max(1,Math.min(requestTimeoutMs,deadline-Date.now())))]);
+    const response=await request(`http://localhost:${worker.port}${path}`,{signal});
+    await response.body?.cancel();
+    abort.signal.throwIfAborted();
+    // Inference's root is deliberately 404; the other probes must confirm their APIs work.
+    if(worker.name==='inference'||response.ok)return;
+   } catch {}
+   abort.signal.throwIfAborted();
+   const remaining=deadline-Date.now();
+   if(remaining>0)await delay(Math.min(pollMs,remaining),undefined,{signal:abort.signal});
+  }
+  throw new Error(`${worker.name} did not become ready on :${worker.port}${path}. See ${log}.`);
+ } catch(error) {
+  if(abort.signal.aborted)throw abort.signal.reason;
+  throw error;
+ } finally {
+  child.removeListener('exit',exited);child.removeListener('error',failed);abort.abort();
+ }
+}
 
 /** The local inference path uses TypeSafe or degraded mode. Omit the remote-only AI binding entirely. */
 export function localConfig(text,{testFixture=false}={}) {
@@ -111,6 +144,7 @@ async function main() {
    writeFileSync(configPath,`${JSON.stringify(localConfig(readFileSync(worker.config,'utf8'),{testFixture:process.argv.includes('--test-fixture')}),null,2)}\n`);
    const child=spawn('bunx',['wrangler','dev','--config',configPath,'--local','--test-scheduled','--port',String(worker.port),'--inspector-port',String(worker.inspector),'--env-file',worker.envFile],{detached:true,stdio:['ignore',output,output],env:{...env,WRANGLER_SEND_METRICS:'false'}});
   writeFileSync(`.wrangler/local-${worker.name}.pid`,String(child.pid));child.unref();
+  await waitForWorker(worker,child);
  }
  const note=pinNote(existsSync('worker/generated/client-assets.ts')?readFileSync('worker/generated/client-assets.ts','utf8'):'',existsSync('.wrangler/provision/local-issuer-public-keys.json'));
  if(note)console.warn(note);
