@@ -100,7 +100,7 @@ test('v4 archives are recomputable by the independent watcher, chain to the prev
  assert.notEqual(watcher.archiveDigest({...second,stats:{}}),second.digest,'any edit to an archive is detected');
  assert.equal(ARCHIVE_FORMAT,'shouldiworkthere-transparency-v4');
  const moderation=second.moderation as {period:string;counts:Row;heldByReason:Row;juryOutcomes:Row};
- assert.equal(moderation.period,quarter());
+ assert.equal(moderation.period,'2026-Q3','the archive reflects its fixed September fixture date, not the wall clock');
  const rounded=new Set(['submitted','publishedAutomatically','repairs','jury']);
  assert.ok(Object.entries(moderation.counts).every(([k,v])=>rounded.has(k)?v==='<25'||(typeof v==='number'&&v%25===0):v==='<5'||(typeof v==='number'&&v>=5)),'every archived count is coarse: contribution-derived ones rounded like contribution counts');
  assert.ok([...Object.values(moderation.heldByReason),...Object.values(moderation.juryOutcomes)].every(v=>v==='<25'||(typeof v==='number'&&v%25===0)));
