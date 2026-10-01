@@ -79,6 +79,45 @@ such wherever they appear.
 
 Three Cloudflare Workers in one Cloudflare account, each with only its own secrets:
 
+```mermaid
+flowchart TB
+  browser["Browser<br/>Own mailbox, blinding state and finished credential"]
+
+  subgraph account["One Cloudflare account, one operator"]
+    subgraph verification["Mailbox verification boundary"]
+      verifier["Verifier / issuer<br/>Work mailbox in memory<br/>ISSUER_MASTER_KEY and MAILBOX_PEPPER"]
+      verifierDB[("VERIFIER D1<br/>Keyed mailbox hashes, code records, quotas and sealed issuer keys")]
+      verifier --- verifierDB
+    end
+
+    subgraph publication["Contribution and inference boundary"]
+      publisher["Main worker / publisher<br/>Verifies credentials offline using its own public-key copies<br/>Never receives the mailbox"]
+      intake[("INTAKE D1<br/>Unpublished contributions and capability hashes")]
+      publicDB[("DB / public D1<br/>Released evidence, public keys, model budgets and readings")]
+      inference["Inference / Jev<br/>No public endpoint<br/>Holds TYPESAFE_API_KEY and the Workers AI binding"]
+      publisher --- intake
+      publisher --- publicDB
+      inference --- publicDB
+      publisher -->|"INFERENCE service binding:<br/>questions, consented drafts and published text"| inference
+    end
+
+    publisher -.->|"VERIFIER service binding:<br/>directory registration/correction, link check and public keys only"| verifier
+  end
+
+  browser -->|"Direct browser-to-verifier:<br/>mailbox code flow and blinded messages"| verifier
+  verifier -->|"Blind signatures; never receives contributions"| browser
+  browser -->|"Unblinded credential and contribution"| publisher
+  publisher -->|"Released evidence and public keys"| browser
+```
+
+The boundaries separate services, databases and most secrets, not operators: the same operator can read all three
+D1 databases and change every worker. The verifier receives the work email address only for verification; it stores
+keyed mailbox hashes, while Cloudflare email delivery records also contain the recipient. Inference receives approved
+text after consent, questions and published text, never mailbox addresses or proof credentials. See
+[`docs/protocol-poewi.md`](docs/protocol-poewi.md) and [`docs/threat-model.md`](docs/threat-model.md) for the protocol and
+remaining correlation risks. The main-to-verifier link carries directory information and public keys, never a
+contribution or a credential redemption check.
+
 | Worker | Config | Entry | Public address | Databases | Holds |
 |---|---|---|---|---|---|
 | Main (publisher, site and API) | `wrangler.jsonc` | `worker/src/index.ts` → `worker/src/app.ts` | shouldiworkthere.com | `DB` (public), `INTAKE` (private) | `RATE_LIMIT_SECRET`, `INTERNAL_TOKEN`, `ADMIN_TOKEN`, optional `INFERENCE_CALLER_SECRET` and `TRUSTEE_KEYS` |
